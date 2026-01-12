@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+langchain
+langchain-ollama
+chromadb
+pdfplumber
+httpx
+pytest
