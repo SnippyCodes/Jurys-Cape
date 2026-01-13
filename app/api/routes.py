@@ -4,9 +4,11 @@ from app.services.llmengine import analyze_case_text
 from app.models.legal_codes import BNS_MAPPING
 
 from app.api.endpoints.swarm import router as swarm_router
+from app.api.endpoints.gemini_routes import router as gemini_router
 
 router = APIRouter()
 router.include_router(swarm_router)
+router.include_router(gemini_router)
 
 @router.get("/")
 async def health_check():

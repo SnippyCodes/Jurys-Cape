@@ -1,9 +1,13 @@
-from langchain_ollama import OllamaEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import Chroma
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from app.core.config import settings
 
-# 1. Setup local embeddings (This turns text into numbers)
-embeddings = OllamaEmbeddings(model="llama3.2:1b")
+# 1. Setup Gemini embeddings
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/text-embedding-004",
+    google_api_key=settings.GEMINI_API_KEY
+)
 
 # 2. Setup Vector Store (This stores the numbers locally in a folder)
 # It will create a folder called 'vector_db' in your project
@@ -17,6 +21,9 @@ def add_documents_to_db(text: str):
     return "Successfully indexed document."
 
 def search_legal_precedents(query: str):
-    """Searches the database for the most relevant law/precedent."""
+    """
+    Searches the local legal vector database for relevant case laws, precedents, and BNS (Bharatiya Nyaya Sanhita) sections.
+    Use this when the user asks about specific laws, legal definitions, or past case examples.
+    """
     results = vector_db.similarity_search(query, k=2)
     return [res.page_content for res in results]

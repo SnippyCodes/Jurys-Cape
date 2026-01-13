@@ -8,3 +8,7 @@ chromadb
 pdfplumber
 httpx
 pytest
+google-generativeai
+python-multipart
+langchain-community
+langchain-google-genai
