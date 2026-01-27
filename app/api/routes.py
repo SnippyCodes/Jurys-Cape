@@ -3,12 +3,19 @@ from app.models.case_file import CaseFileRequest, FactExtractionResponse
 from app.services.llmengine import analyze_case_text
 from app.models.legal_codes import BNS_MAPPING
 
+from app.core.database import create_db_and_tables
 from app.api.endpoints.swarm import router as swarm_router
 from app.api.endpoints.gemini_routes import router as gemini_router
+from app.api.endpoints.cases import router as cases_router
 
 router = APIRouter()
 router.include_router(swarm_router)
 router.include_router(gemini_router)
+router.include_router(cases_router, tags=["cases"])
+
+@router.on_event("startup")
+def on_startup():
+    create_db_and_tables()
 
 @router.get("/")
 async def health_check():
