@@ -2,9 +2,108 @@
 
 :root {
   --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* Dark Theme (Default) - Medical Ultra-Modern */
+  --bg-app: #0f172a;
+  /* Slate 900 */
+  --bg-panel: rgba(15, 23, 42, 0.8);
+  /* Slate 900 @ 80% */
+  --bg-card: rgba(30, 41, 59, 0.6);
+  /* Slate 800 @ 60% */
+
+  --text-main: #f8fafc;
+  /* Slate 50 */
+  --text-muted: #94a3b8;
+  /* Slate 400 */
+
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.05);
+
+  /* Semantic Utilities */
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --bg-surface: rgba(15, 23, 42, 0.5);
+  --bg-hover: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] {
+  --bg-app: #f1f5f9;
+  /* Slate 100 */
+  --bg-panel: rgba(255, 255, 255, 0.85);
+  /* White @ 85% */
+  --bg-card: rgba(255, 255, 255, 0.9);
+  /* White @ 90% */
+
+  --text-main: #0f172a;
+  /* Slate 900 */
+  --text-muted: #64748b;
+  /* Slate 500 */
+
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-highlight: rgba(0, 0, 0, 0.05);
+
+  /* Semantic Utilities Light */
+  --border-subtle: rgba(0, 0, 0, 0.2);
+  --bg-surface: #ffffff;
+  --bg-hover: rgba(0, 0, 0, 0.05);
 }
 
 body {
   font-family: var(--font-sans);
-  @apply bg-slate-50 text-slate-900 antialiased;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  @apply antialiased selection:bg-blue-500/30 selection:text-blue-200 overflow-x-hidden;
+}
+
+/* Custom Utilities for Glassmorphism */
+@layer components {
+  .glass-panel {
+    @apply backdrop-blur-xl border shadow-xl;
+    background-color: var(--bg-panel);
+    border-color: var(--glass-border);
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md border transition-all duration-300;
+    background-color: var(--bg-card);
+    border-color: var(--glass-border);
+  }
+
+  .glass-card:hover {
+    border-color: var(--glass-highlight);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+
+  .border-glow {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.15) inset;
+  }
+
+  /* Theme-aware Utilities */
+  .theme-border {
+    border-color: var(--border-subtle);
+  }
+
+  .theme-bg-surface {
+    background-color: var(--bg-surface);
+  }
+
+  .theme-hover:hover {
+    background-color: var(--bg-hover);
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-950;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700/50 rounded-full hover:bg-slate-600;
+  }
 }

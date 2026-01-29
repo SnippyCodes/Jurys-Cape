@@ -1,5 +1,6 @@
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Body, UploadFile, File
+from fastapi.responses import FileResponse
 from sqlmodel import Session, select
 from app.core.database import get_session
 from app.models.db_models import Case, Evidence
@@ -102,3 +103,10 @@ def get_case_evidence(case_id: str, session: Session = Depends(get_session)):
     statement = select(Evidence).where(Evidence.case_id == case_id)
     results = session.exec(statement).all()
     return results
+
+@router.get("/cases/{case_id}/evidence/{file_name}")
+def download_evidence(case_id: str, file_name: str, session: Session = Depends(get_session)):
+    file_path = f"uploads/{case_id}/{file_name}"
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+    return FileResponse(file_path, filename=file_name)

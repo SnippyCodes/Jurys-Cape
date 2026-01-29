@@ -6,21 +6,27 @@ import EvidenceAnalysis from './pages/EvidenceAnalysis';
 import LegalChat from './pages/LegalChat';
 import LawMapper from './pages/LawMapper';
 
+import { ThemeProvider } from './context/ThemeContext';
+import Settings from './pages/Settings';
+
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="case/new" element={<CaseWorkspace />} />
-          <Route path="case/:id" element={<CaseWorkspace />} />
-          <Route path="evidence" element={<EvidenceAnalysis />} />
-          <Route path="chat" element={<LegalChat />} />
-          <Route path="mapper" element={<LawMapper />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="case/new" element={<CaseWorkspace />} />
+            <Route path="case/:id" element={<CaseWorkspace />} />
+            <Route path="evidence" element={<EvidenceAnalysis />} />
+            <Route path="chat" element={<LegalChat />} />
+            <Route path="mapper" element={<LawMapper />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

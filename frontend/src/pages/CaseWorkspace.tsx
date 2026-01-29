@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { caseService, type FactExtractionResponse, type Evidence } from '../api/client';
-import { Loader2, Zap, Save, FileText, CheckCircle, Scale, Clock, AlertTriangle, User, MapPin, Calendar, Edit3, Camera, UploadCloud, File as FileIcon } from 'lucide-react';
+import { Loader2, Zap, Save, CheckCircle, Scale, AlertTriangle, Edit3, Camera, UploadCloud, File as FileIcon, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
+import EvidenceGapAnalysis from '../components/EvidenceGapAnalysis';
+import CaseOutcomePredictor from '../components/CaseOutcomePredictor';
+import CaseTimeline from '../components/CaseTimeline';
 
 export default function CaseWorkspace() {
     const { id } = useParams();
@@ -16,10 +19,10 @@ export default function CaseWorkspace() {
         accused: '',
         location: '',
         incident_date: '',
-        incident_time: ''
+        incident_time: '',
+        priority: 'Medium'
     });
 
-    const [loading, setLoading] = useState(false);
     const [analyzing, setAnalyzing] = useState(false);
     const [result, setResult] = useState<FactExtractionResponse | null>(null);
     const [evidenceList, setEvidenceList] = useState<Evidence[]>([]);
@@ -35,7 +38,8 @@ export default function CaseWorkspace() {
                     accused: c.accused || '',
                     location: c.location || '',
                     incident_date: c.incident_date || '',
-                    incident_time: c.incident_time || ''
+                    incident_time: c.incident_time || '',
+                    priority: c.priority || 'Medium'
                 });
                 // Load evidence
                 caseService.getEvidence(id).then(setEvidenceList);
@@ -112,118 +116,145 @@ export default function CaseWorkspace() {
     };
 
     return (
-        <div className="h-[calc(100vh-6rem)] grid grid-cols-1 lg:grid-cols-12 gap-6 p-4">
+        <div className="h-[78vh] grid grid-cols-1 lg:grid-cols-12 gap-6 p-4 mb-20">
             {/* LEFT: Case Filing Form */}
             <div className="lg:col-span-5 h-full flex flex-col gap-4">
-                <div className="bg-white rounded-xl border border-slate-200 shadow-sm h-full flex flex-col overflow-hidden">
+                <div className="glass-panel rounded-xl h-full flex flex-col overflow-hidden">
                     {/* Header */}
-                    <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
-                        <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wide flex items-center gap-2">
-                            <Edit3 className="h-4 w-4 text-blue-600" />
+                    <div className="p-4 theme-border bg-[var(--bg-surface)] flex justify-between items-center border-b">
+                        <h2 className="text-sm font-bold uppercase tracking-wide flex items-center gap-2 text-[var(--text-main)]">
+                            <Edit3 className="h-4 w-4 text-blue-400" />
                             Filing Details
                         </h2>
                         <div className="flex gap-2">
                             {id && id !== 'new' && (
                                 <div className="relative overflow-hidden group">
                                     <input type="file" onChange={handleFileUpload} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
-                                    <button className="px-2 py-1 bg-slate-100 border border-slate-200 text-slate-600 rounded text-[10px] font-bold flex items-center gap-1 hover:bg-slate-200 transition-colors">
+                                    <button className="px-2 py-1 bg-[var(--bg-surface)] theme-border border text-[var(--text-muted)] rounded text-[10px] font-bold flex items-center gap-1 hover:bg-[var(--bg-hover)] transition-colors">
                                         {uploading ? <Loader2 className="h-3 w-3 animate-spin" /> : <UploadCloud className="h-3 w-3" />}
                                         ATTACH EVIDENCE
                                     </button>
                                 </div>
                             )}
-                            <div className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-[10px] font-bold">
+                            <div className="px-2 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 rounded text-[10px] font-bold">
                                 INTAKE FORM
                             </div>
                         </div>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-4 space-y-6">
+                    <div className="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar">
                         {/* Metadata Fields */}
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase">Inc. Date</label>
+                                <label className="text-xs font-bold uppercase text-[var(--text-muted)]">Inc. Date</label>
                                 <input
                                     type="text"
                                     value={formData.incident_date}
                                     onChange={e => setFormData({ ...formData, incident_date: e.target.value })}
                                     placeholder="YYYY-MM-DD"
-                                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-blue-500"
+                                    className="w-full px-3 py-2 bg-[var(--bg-surface)] theme-border border rounded-lg text-sm text-[var(--text-main)] focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 placeholder:text-slate-500"
                                 />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase">Inc. Time</label>
+                                <label className="text-xs font-bold uppercase text-[var(--text-muted)]">Inc. Time</label>
                                 <input
                                     type="text"
                                     value={formData.incident_time}
                                     onChange={e => setFormData({ ...formData, incident_time: e.target.value })}
                                     placeholder="HH:MM"
-                                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-blue-500"
+                                    className="w-full px-3 py-2 bg-[var(--bg-surface)] theme-border border rounded-lg text-sm text-[var(--text-main)] focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 placeholder:text-slate-500"
                                 />
                             </div>
                         </div>
 
-                        <div className="space-y-1">
-                            <label className="text-xs font-bold text-slate-500 uppercase">Location</label>
-                            <input
-                                type="text"
-                                value={formData.location}
-                                onChange={e => setFormData({ ...formData, location: e.target.value })}
-                                placeholder="Incident Location"
-                                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-blue-500"
-                            />
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold uppercase text-[var(--text-muted)]">Location</label>
+                                <input
+                                    type="text"
+                                    value={formData.location}
+                                    onChange={e => setFormData({ ...formData, location: e.target.value })}
+                                    placeholder="Incident Location"
+                                    className="w-full px-3 py-2 bg-[var(--bg-surface)] theme-border border rounded-lg text-sm text-[var(--text-main)] focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 placeholder:text-slate-500"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold uppercase text-[var(--text-muted)]">Priority</label>
+                                <select
+                                    value={formData.priority || 'Medium'}
+                                    onChange={e => setFormData({ ...formData, priority: e.target.value })}
+                                    className="w-full px-3 py-2 bg-[var(--bg-surface)] theme-border border rounded-lg text-sm text-[var(--text-main)] focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20"
+                                >
+                                    <option value="Low">Low Priority</option>
+                                    <option value="Medium">Medium Priority</option>
+                                    <option value="High">High Priority</option>
+                                    <option value="Critical">Critical</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase">Complainant</label>
+                                <label className="text-xs font-bold uppercase text-[var(--text-muted)]">Complainant</label>
                                 <input
                                     type="text"
                                     value={formData.complainant}
                                     onChange={e => setFormData({ ...formData, complainant: e.target.value })}
                                     placeholder="Name"
-                                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-blue-500"
+                                    className="w-full px-3 py-2 bg-[var(--bg-surface)] theme-border border rounded-lg text-sm text-[var(--text-main)] focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 placeholder:text-slate-500"
                                 />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase">Accused</label>
+                                <label className="text-xs font-bold uppercase text-[var(--text-muted)]">Accused</label>
                                 <input
                                     type="text"
                                     value={formData.accused}
                                     onChange={e => setFormData({ ...formData, accused: e.target.value })}
                                     placeholder="Name (if known)"
-                                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-blue-500"
+                                    className="w-full px-3 py-2 bg-[var(--bg-surface)] theme-border border rounded-lg text-sm text-[var(--text-main)] focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 placeholder:text-slate-500"
                                 />
                             </div>
                         </div>
 
                         {/* Narrative */}
                         <div className="space-y-2">
-                            <label className="text-xs font-bold text-slate-500 uppercase">Narrative / FIR Text</label>
+                            <label className="text-xs font-bold uppercase text-[var(--text-muted)]">Narrative / FIR Text</label>
                             <textarea
                                 value={formData.description}
                                 onChange={e => setFormData({ ...formData, description: e.target.value })}
                                 placeholder="Type incident details here..."
-                                className="w-full h-48 p-3 bg-slate-50 border border-slate-200 rounded-lg text-sm leading-relaxed focus:outline-none focus:border-blue-500 resize-none font-mono"
+                                className="w-full h-48 p-3 bg-[var(--bg-surface)] theme-border border rounded-lg text-sm text-[var(--text-main)] leading-relaxed focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 resize-none font-mono placeholder:text-slate-500"
                             />
                         </div>
 
                         {/* Evidence Locker */}
                         {evidenceList.length > 0 && (
-                            <div className="space-y-2 border-t border-slate-100 pt-4">
-                                <label className="text-xs font-bold text-emerald-600 uppercase flex items-center gap-2">
+                            <div className="space-y-2 border-t border-white/5 pt-4">
+                                <label className="text-xs font-bold text-emerald-500 uppercase flex items-center gap-2">
                                     <CheckCircle className="h-3 w-3" /> Chain of Custody Secured
                                 </label>
-                                <div className="bg-slate-50 rounded-lg p-2 space-y-2">
+                                <div className="bg-slate-900/50 rounded-lg p-2 space-y-2 border border-white/5">
                                     {evidenceList.map(ev => (
-                                        <div key={ev.id} className="flex items-center justify-between bg-white p-2 rounded border border-slate-100 shadow-sm">
+                                        <div key={ev.id} className="flex items-center justify-between bg-white/5 p-2 rounded border border-white/5 hover:bg-white/10 transition-colors">
                                             <div className="flex items-center gap-2 overflow-hidden">
                                                 <FileIcon className="h-4 w-4 text-slate-400 flex-shrink-0" />
-                                                <span className="text-xs font-medium text-slate-700 truncate">{ev.file_name}</span>
+                                                <span className="text-xs font-medium text-slate-300 truncate">{ev.file_name}</span>
                                             </div>
-                                            <span className="text-[10px] font-mono text-slate-400 bg-slate-100 px-1 rounded">
-                                                {ev.file_hash.substring(0, 8)}...
-                                            </span>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-[10px] font-mono text-slate-500 bg-black/20 px-1 rounded hidden sm:inline-block">
+                                                    {ev.file_hash.substring(0, 8)}...
+                                                </span>
+                                                <a
+                                                    href={`http://localhost:8000/api/v1/cases/${id}/evidence/${ev.file_name}`}
+                                                    download
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="p-1 hover:bg-white/10 rounded transition-colors text-slate-400 hover:text-white"
+                                                    title="Download Evidence"
+                                                >
+                                                    <Download className="h-3 w-3" />
+                                                </a>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
@@ -231,13 +262,13 @@ export default function CaseWorkspace() {
                         )}
                     </div>
 
-                    <div className="p-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+                    <div className="p-4 theme-border bg-[var(--bg-surface)] flex justify-end border-t">
                         <button
                             onClick={handleAnalyzeAndSave}
                             disabled={analyzing || !formData.description}
-                            className="bg-slate-900 text-white px-6 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-black transition-all shadow-lg disabled:opacity-50"
+                            className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 transition-all shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed group"
                         >
-                            {analyzing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4 text-amber-400 fill-amber-400" />}
+                            {analyzing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4 text-amber-300 fill-amber-300 group-hover:scale-110 transition-transform" />}
                             {analyzing ? 'Processing...' : 'Analyze & Auto-Fill'}
                         </button>
                     </div>
@@ -246,57 +277,90 @@ export default function CaseWorkspace() {
 
             {/* RIGHT: Intelligence Report (SAME AS BEFORE) */}
             <div className="lg:col-span-7 h-full">
-                <div className="bg-white rounded-xl border border-slate-200 shadow-sm h-full flex flex-col overflow-hidden">
-                    <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-                        <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wide flex items-center gap-2">
-                            <Scale className="h-4 w-4 text-emerald-600" />
+                <div className="glass-panel rounded-xl h-full flex flex-col overflow-hidden border-l-4 border-l-emerald-500/50">
+                    <div className="p-4 theme-border border-b flex items-center justify-between bg-[var(--bg-surface)]">
+                        <h2 className="text-sm font-bold uppercase tracking-wide flex items-center gap-2 text-[var(--text-main)]">
+                            <Scale className="h-4 w-4 text-emerald-500" />
                             AI Intelligence Report
                         </h2>
                         {result && (
-                            <div className="text-emerald-600 text-xs font-bold flex items-center gap-1.5 uppercase">
-                                <Save className="h-3 w-3" />
-                                Saved
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={() => {
+                                        const report = `CASE DATA EXPORT\n------------------\nID: ${id}\nTitle: ${formData.title}\nDate: ${new Date().toLocaleString()}\n\nSUMMARY\n${result.summary}\n\nFACTS\n${result.chronological_facts.join('\n')}\n\nVIOLATIONS\n${result.potential_bns_sections.join(', ')}`;
+                                        const blob = new Blob([report], { type: 'text/plain' });
+                                        const url = URL.createObjectURL(blob);
+                                        const a = document.createElement('a');
+                                        a.href = url;
+                                        a.download = `${id}_Report.txt`;
+                                        a.click();
+                                    }}
+                                    className="text-[var(--text-muted)] hover:text-[var(--text-main)] text-xs font-bold flex items-center gap-1.5 uppercase bg-[var(--bg-hover)] px-2 py-1 rounded transition-colors"
+                                >
+                                    <Save className="h-3 w-3" />
+                                    Download
+                                </button>
+                                <div className="text-emerald-500 text-xs font-bold flex items-center gap-1.5 uppercase bg-emerald-500/10 px-2 py-1 rounded">
+                                    <CheckCircle className="h-3 w-3" />
+                                    Saved
+                                </div>
                             </div>
                         )}
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-0 bg-slate-50/30">
+                    <div className="flex-1 overflow-y-auto p-0 bg-[var(--bg-app)] custom-scrollbar">
                         {!result ? (
-                            <div className="h-full flex flex-col items-center justify-center text-slate-400 space-y-4">
-                                <div className="w-16 h-16 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center">
-                                    <Camera className="h-6 w-6 text-slate-300" />
+                            <div className="h-full flex flex-col items-center justify-center text-[var(--text-muted)] space-y-4">
+                                <div className="w-16 h-16 rounded-full bg-[var(--bg-surface)] theme-border border flex items-center justify-center animate-pulse">
+                                    <Camera className="h-6 w-6 text-slate-400" />
                                 </div>
-                                <p className="text-sm font-medium text-slate-600">Waiting for Case Data</p>
+                                <p className="text-sm font-medium">Waiting for Case Data</p>
                             </div>
                         ) : (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-6 max-w-3xl mx-auto space-y-8">
-                                <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-                                        <CheckCircle className="h-3 w-3" /> Executive Summary
+                                <div className="glass-card p-6 rounded-xl theme-border border shadow-lg">
+                                    <h3 className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest mb-3 flex items-center gap-2">
+                                        <CheckCircle className="h-3 w-3 text-emerald-500" /> Executive Summary
                                     </h3>
-                                    <p className="text-slate-800 text-sm leading-relaxed font-medium">{result.summary}</p>
+                                    <p className="text-[var(--text-main)] text-sm leading-relaxed font-medium">{result.summary}</p>
                                 </div>
 
+                                {/* Case Outcome Predictor */}
+                                <CaseOutcomePredictor
+                                    hasEvidence={evidenceList.length > 0}
+                                    evidenceCount={evidenceList.length}
+                                    hasWitness={!!formData.complainant}
+                                    caseType={formData.title}
+                                    hasMedicalReport={evidenceList.some(e => e.file_name.toLowerCase().includes('medical') || e.file_name.toLowerCase().includes('report'))}
+                                    chronologyFactsCount={result.chronological_facts.length}
+                                />
+
                                 {/* Sections */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="grid grid-cols-1 gap-6">
+                                    {/* Timeline Visualization */}
+                                    <CaseTimeline chronologicalFacts={result.chronological_facts} />
+                                    {/* Violations */}
                                     <div className="space-y-4">
-                                        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1"><Clock className="h-3 w-3 inline mr-1" /> Chronology</h3>
-                                        <div className="border-l-2 border-slate-200 ml-2 space-y-4 pb-2">
-                                            {result.chronological_facts.map((fact, i) => (
-                                                <div key={i} className="pl-4 relative"><div className="absolute -left-[5px] top-2 h-2 w-2 rounded-full bg-slate-300" />
-                                                    <p className="text-xs text-slate-600">{fact}</p>
+                                        <h3 className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest pl-1 border-l-2 border-rose-500 ml-1"><AlertTriangle className="h-3 w-3 inline mr-2 text-rose-500" /> Violations</h3>
+                                        <div className="grid gap-2">
+                                            {result.potential_bns_sections.map((law, i) => (
+                                                <div key={i} className="bg-rose-500/10 p-2.5 rounded border border-rose-500/20 text-rose-600 dark:text-rose-300 text-xs font-bold hover:bg-rose-500/20 transition-colors cursor-default">
+                                                    {law}
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
-                                    <div className="space-y-4">
-                                        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1"><AlertTriangle className="h-3 w-3 inline mr-1" /> Violations</h3>
-                                        <div className="grid gap-2">
-                                            {result.potential_bns_sections.map((law, i) => (
-                                                <div key={i} className="bg-rose-50 p-2 rounded border border-rose-100 text-rose-800 text-xs font-bold">{law}</div>
-                                            ))}
-                                        </div>
-                                    </div>
+
+                                    {/* Evidence Gap Analysis */}
+                                    <EvidenceGapAnalysis
+                                        caseType={formData.title}
+                                        hasDescription={!!formData.description}
+                                        hasComplainant={!!formData.complainant}
+                                        hasLocation={!!formData.location}
+                                        hasIncidentDate={!!formData.incident_date}
+                                        hasIncidentTime={!!formData.incident_time}
+                                        evidenceCount={evidenceList.length}
+                                    />
                                 </div>
                             </motion.div>
                         )}

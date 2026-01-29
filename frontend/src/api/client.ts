@@ -2,9 +2,6 @@ import axios from 'axios';
 
 export const api = axios.create({
     baseURL: 'http://localhost:8000/api/v1',
-    headers: {
-        'Content-Type': 'application/json',
-    },
 });
 
 export interface FactExtractionResponse {
@@ -68,9 +65,8 @@ export const caseService = {
     },
 
     chat: async (message: string) => {
-        const formData = new FormData();
-        formData.append('message', message);
-        const { data } = await api.post('/gemini/chat', formData);
+        // Switch to JSON for reliability
+        const { data } = await api.post('/gemini/chat', { message });
         return data;
     },
 
@@ -79,9 +75,7 @@ export const caseService = {
         formData.append('file', file);
         formData.append('prompt', prompt);
         const endpoint = `/gemini/analyze/${type}`;
-        const { data } = await api.post(endpoint, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        });
+        const { data } = await api.post(endpoint, formData);
         return data;
     },
 

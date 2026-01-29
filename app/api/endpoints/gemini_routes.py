@@ -45,10 +45,18 @@ async def analyze_doc(file: UploadFile = File(...), prompt: str = Form(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+from pydantic import BaseModel
+
+class ChatRequest(BaseModel):
+    message: str
+
 @router.post("/chat")
-async def chat_rag(message: str = Form(...)):
+async def chat_rag(request: ChatRequest):
     try:
-        response = await gemini_service.chat_with_rag(message)
+        # Restore real AI Service
+        response = await gemini_service.chat_with_rag(request.message)
         return {"response": response}
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
