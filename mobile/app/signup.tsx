@@ -57,7 +57,7 @@ export default function Signup() {
 
                     {/* Header */}
                     <View style={tw`mt-4 mb-6`}>
-                        <TouchableOpacity onPress={() => router.back()} style={tw`w-10 h-10 rounded-full bg-white items-center justify-center mb-6 shadow-sm`}>
+                        <TouchableOpacity onPress={() => router.back()} style={tw`w-10 h-10 rounded-full bg-white items-center justify-center mb-4 shadow-sm`}>
                             <Feather name="arrow-left" size={20} color="#64748b" />
                         </TouchableOpacity>
                         <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight mb-2`}>Create Account</Text>
