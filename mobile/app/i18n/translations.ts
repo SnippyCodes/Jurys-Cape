@@ -1,4 +1,4 @@
-// Translation keys and text for all supported languages
+// Extended translation keys for complete app coverage
 export const translations = {
     en: {
         // Common
@@ -25,6 +25,12 @@ export const translations = {
         dontHaveAccount: "Don't have an account?",
         devMode: 'Developer Mode',
         devModeDesc: 'Skip authentication instantly',
+        joinNavSahayak: 'Join Nav Sahayak',
+        enterEmail: 'your.email@example.com',
+        enterPassword: 'Min. 6 characters',
+        reenterPassword: 'Re-enter password',
+        enterFullName: 'Enter your full name',
+        enterPhone: '+91 XXXXX XXXXX',
 
         // Dashboard
         dashboard: 'Dashboard',
@@ -36,6 +42,8 @@ export const translations = {
         consultDesc: 'AI-powered legal guidance',
         noCases: 'No cases filed yet',
         noCasesDesc: 'Tap the Filing tab to register your first case',
+        viewCase: 'View Case',
+        stationCommand: 'Station Command',
 
         // Case Filing
         filing: 'Filing',
@@ -47,6 +55,12 @@ export const translations = {
         accused: 'Accused',
         dateTime: 'Date & Time',
         fileCase: 'File Case',
+        selectDate: 'Select Date',
+        selectTime: 'Select Time',
+        enterCaseTitle: 'Enter case title',
+        enterDescription: 'Describe the case details...',
+        enterComplainant: 'Complainant name',
+        enterAccused: 'Accused name',
 
         // Evidence
         evidence: 'Evidence',
@@ -55,6 +69,7 @@ export const translations = {
         gallery: 'Gallery',
         analyzing: 'Analyzing...',
         noEvidence: 'No evidence uploaded',
+        selectCase: 'Select a case to upload evidence',
 
         // Chat
         chat: 'Consult',
@@ -82,12 +97,15 @@ export const translations = {
         status: 'Status',
         aiAnalysis: 'AI Analysis',
         download: 'Download',
+        liveUpdate: 'Live Update',
 
         // Alerts
         logoutConfirm: 'Are you sure you want to logout?',
         success: 'Success',
         error: 'Error',
         caseFiled: 'Case filed successfully!',
+        statusUpdated: 'Status Updated',
+        caseMarkedAs: 'Case marked as',
     },
 
     hi: {
@@ -115,6 +133,12 @@ export const translations = {
         dontHaveAccount: 'खाता नहीं है?',
         devMode: 'डेवलपर मोड',
         devModeDesc: 'प्रमाणीकरण छोड़ें',
+        joinNavSahayak: 'नाव सहायक में शामिल हों',
+        enterEmail: 'your.email@example.com',
+        enterPassword: 'कम से कम 6 अक्षर',
+        reenterPassword: 'पासवर्ड फिर से दर्ज करें',
+        enterFullName: 'अपना पूरा नाम दर्ज करें',
+        enterPhone: '+91 XXXXX XXXXX',
 
         // Dashboard
         dashboard: 'डैशबोर्ड',
@@ -126,6 +150,8 @@ export const translations = {
         consultDesc: 'AI-संचालित कानूनी मार्गदर्शन',
         noCases: 'अभी तक कोई मामला दर्ज नहीं',
         noCasesDesc: 'अपना पहला मामला दर्ज करने के लिए फाइलिंग टैब पर टैप करें',
+        viewCase: 'मामला देखें',
+        stationCommand: 'स्टेशन कमांड',
 
         // Case Filing
         filing: 'फाइलिंग',
@@ -137,6 +163,12 @@ export const translations = {
         accused: 'आरोपी',
         dateTime: 'तारीख और समय',
         fileCase: 'मामला दर्ज करें',
+        selectDate: 'तारीख चुनें',
+        selectTime: 'समय चुनें',
+        enterCaseTitle: 'मामले का शीर्षक दर्ज करें',
+        enterDescription: 'मामले का विवरण दर्ज करें...',
+        enterComplainant: 'शिकायतकर्ता का नाम',
+        enterAccused: 'आरोपी का नाम',
 
         // Evidence
         evidence: 'साक्ष्य',
@@ -145,6 +177,7 @@ export const translations = {
         gallery: 'गैलरी',
         analyzing: 'विश्लेषण हो रहा है...',
         noEvidence: 'कोई साक्ष्य अपलोड नहीं किया गया',
+        selectCase: 'साक्ष्य अपलोड करने के लिए मामला चुनें',
 
         // Chat
         chat: 'परामर्श',
@@ -172,12 +205,15 @@ export const translations = {
         status: 'स्थिति',
         aiAnalysis: 'AI विश्लेषण',
         download: 'डाउनलोड',
+        liveUpdate: 'लाइव अपडेट',
 
         // Alerts
         logoutConfirm: 'क्या आप वाकई लॉग आउट करना चाहते हैं?',
         success: 'सफलता',
         error: 'त्रुटि',
         caseFiled: 'मामला सफलतापूर्वक दर्ज किया गया!',
+        statusUpdated: 'स्थिति अपडेट की गई',
+        caseMarkedAs: 'मामला चिह्नित किया गया',
     },
 
     mr: {
@@ -205,6 +241,12 @@ export const translations = {
         dontHaveAccount: 'खाते नाही?',
         devMode: 'डेव्हलपर मोड',
         devModeDesc: 'प्रमाणीकरण वगळा',
+        joinNavSahayak: 'नाव सहायक मध्ये सामील व्हा',
+        enterEmail: 'your.email@example.com',
+        enterPassword: 'किमान 6 वर्ण',
+        reenterPassword: 'पासवर्ड पुन्हा प्रविष्ट करा',
+        enterFullName: 'तुमचे पूर्ण नाव प्रविष्ट करा',
+        enterPhone: '+91 XXXXX XXXXX',
 
         // Dashboard
         dashboard: 'डॅशबोर्ड',
@@ -216,6 +258,8 @@ export const translations = {
         consultDesc: 'AI-चालित कायदेशीर मार्गदर्शन',
         noCases: 'अद्याप कोणतेही प्रकरण नोंदवलेले नाही',
         noCasesDesc: 'तुमचे पहिले प्रकरण नोंदवण्यासाठी फाइलिंग टॅबवर टॅप करा',
+        viewCase: 'प्रकरण पहा',
+        stationCommand: 'स्टेशन कमांड',
 
         // Case Filing
         filing: 'फाइलिंग',
@@ -227,6 +271,12 @@ export const translations = {
         accused: 'आरोपी',
         dateTime: 'तारीख आणि वेळ',
         fileCase: 'प्रकरण नोंदवा',
+        selectDate: 'तारीख निवडा',
+        selectTime: 'वेळ निवडा',
+        enterCaseTitle: 'प्रकरणाचे शीर्षक प्रविष्ट करा',
+        enterDescription: 'प्रकरणाचे तपशील वर्णन करा...',
+        enterComplainant: 'तक्रारदाराचे नाव',
+        enterAccused: 'आरोपीचे नाव',
 
         // Evidence
         evidence: 'पुरावा',
@@ -235,6 +285,7 @@ export const translations = {
         gallery: 'गॅलरी',
         analyzing: 'विश्लेषण करत आहे...',
         noEvidence: 'कोणताही पुरावा अपलोड केलेला नाही',
+        selectCase: 'पुरावा अपलोड करण्यासाठी प्रकरण निवडा',
 
         // Chat
         chat: 'सल्लामसलत',
@@ -262,12 +313,15 @@ export const translations = {
         status: 'स्थिती',
         aiAnalysis: 'AI विश्लेषण',
         download: 'डाउनलोड',
+        liveUpdate: 'लाइव्ह अपडेट',
 
         // Alerts
         logoutConfirm: 'तुम्हाला खरोखर लॉग आउट करायचे आहे का?',
         success: 'यश',
         error: 'त्रुटी',
         caseFiled: 'प्रकरण यशस्वीरित्या नोंदवले!',
+        statusUpdated: 'स्थिती अपडेट केली',
+        caseMarkedAs: 'प्रकरण चिन्हांकित केले',
     },
 };
 
