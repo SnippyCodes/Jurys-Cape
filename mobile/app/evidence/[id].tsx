@@ -136,7 +136,16 @@ export default function CaseEvidenceDetail() {
         // Actually, let's just render all.
         return (
             <TouchableOpacity
-                onPress={() => item.analysis && Alert.alert('Forensic Analysis', item.analysis)}
+                onPress={() => {
+                    if (item.analysis) {
+                        router.push({
+                            pathname: '/evidence/detail',
+                            params: { caseId: caseData.id, evidenceId: item.id }
+                        });
+                    } else {
+                        Alert.alert('Processing', 'This evidence is still being analyzed.');
+                    }
+                }}
                 style={tw`bg-white p-4.5 rounded-3xl border border-slate-100 shadow-sm mb-3.5 active:scale-[0.99] transition-all`}
             >
                 <View style={tw`flex-row items-center gap-4`}>
