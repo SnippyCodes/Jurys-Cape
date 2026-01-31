@@ -55,6 +55,14 @@ export function CaseProvider({ children }: { children: ReactNode }) {
     const addEvidenceToCase = (caseId: string, evidence: EvidenceItem) => {
         setCases(prev => prev.map(c => {
             if (c.id === caseId) {
+                const existingIndex = c.evidence.findIndex(e => e.id === evidence.id);
+                if (existingIndex >= 0) {
+                    // Update existing item
+                    const updatedEvidence = [...c.evidence];
+                    updatedEvidence[existingIndex] = evidence;
+                    return { ...c, evidence: updatedEvidence };
+                }
+                // Add new item
                 return { ...c, evidence: [evidence, ...c.evidence] };
             }
             return c;
