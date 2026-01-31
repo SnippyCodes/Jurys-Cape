@@ -322,8 +322,58 @@ export const translations = {
         caseFiled: 'प्रकरण यशस्वीरित्या नोंदवले!',
         statusUpdated: 'स्थिती अपडेट केली',
         caseMarkedAs: 'प्रकरण चिन्हांकित केले',
-    },
-};
 
-export type Language = 'en' | 'hi' | 'mr';
-export type TranslationKey = keyof typeof translations.en;
+        // Tamil (ta)
+        ta: {
+            back: 'பன', save: 'சம', cancel: 'ரதத', delete: 'அழ', edit: 'தரதத', submit: 'சமரபப', loading: 'ஏறறகறத...',
+            login: 'உளநழ', signup: 'பதவ', logout: 'வளயற', email: 'மனனஞசல', password: 'கடவசசல', confirmPassword: 'கடவசசலல உறதபபடதத',
+            fullName: 'மழ பயர', phoneNumber: 'தலபச எண', welcomeBack: 'மணடம வரவறகறம', createAccount: 'கணகக உரவகக',
+            alreadyHaveAccount: 'ஏறகனவ கணகக உளளத?', dontHaveAccount: 'கணகக இலலய?', devMode: 'டவலபபர பயனமற',
+            devModeDesc: 'அஙககரதத உடனடயக தவரககவம', joinNavSahayak: 'நவ சயககல சரவம', enterEmail: 'your.email@example.com',
+            enterPassword: 'கறநதத 6 எழததககள', reenterPassword: 'கடவசசலல மணடம உளளடவம', enterFullName: 'உஙகள மழ பயர உளளடவம',
+            enterPhone: '+91 XXXXX XXXXX', dashboard: 'டஷபரட', navSahayak: 'நவ சயக', activeCases: 'சயலபடம வழகககள',
+            pendingAction: 'நலவயல', totalCases: 'மதத வழகககள', startConsult: 'ஆலசன தடஙக', consultDesc: 'AI சடட வழகடடதல',
+            noCases: 'வழகககள இலல', noCasesDesc: 'மதல வழகக பதவ சயய பலங வரபபதத தடடவம', viewCase: 'வழககக கணக',
+            stationCommand: 'நலய கடடள', filing: 'பதவ', caseTitle: 'வழகக தலபப', fileCase: 'வழகக பதவ', complainant: 'பகரதரர',
+            accused: 'கறறமசடடபபடடவர', evidence: 'சனற', chat: 'அரடட', settings: 'அமபபகள', selectCase: 'வழககத தரநதட',
+            enterCaseTitle: 'வழகக தலபப உளளடவம', enterComplainant: 'பகரதரர பயர', enterAccused: 'கறறமசடடபபடடவர பயர',
+            preferences: 'வரபபததரவகள', darkMode: 'இரணட பயனமற', notifications: 'அறவபபகள', language: 'மழ',
+            privacySecurity: 'தனயரம மறறம பதகபப', regulations: 'வதமறகள', privacyPolicy: 'தனயரம களக',
+            dataProtection: 'தரவ பதகபப', legalCompliance: 'சடட இணககம', selectLanguage: 'மழயத தரநதட',
+            logoutConfirm: 'வளயற வரமபகறரகள?', success: 'வறற', error: 'பழ', caseFiled: 'வழகக பதவ சயயபபடடத!',
+            statusUpdated: 'நல பதபபககபபடடத', caseMarkedAs: 'வழகக கறககபபடடத',
+        },
+
+        // Telugu (te)
+        te: {
+            back: 'వనకక', save: 'సవ', cancel: 'రదద', delete: 'తలగచ', edit: 'సవరచ', submit: 'సమరపచ', loading: 'లడ అవతద...',
+            login: 'లగన', signup: 'సన అప', logout: 'లగఅవట', email: 'ఇమయల', password: 'పసవరడ', confirmPassword: 'పసవరడ నరధరచడ',
+            fullName: 'పరత పర', phoneNumber: 'ఫన నబర', welcomeBack: 'తరగ సవగత', createAccount: 'ఖత సషటచడ',
+            alreadyHaveAccount: 'ఇపపటక ఖత ఉద?', dontHaveAccount: 'ఖత లద?', devMode: 'డవలపర మడ',
+            devModeDesc: 'పరమణకరణన తకషణమ దటవయడ', joinNavSahayak: 'నవ సహయక ల చరడ', enterEmail: 'your.email@example.com',
+            enterPassword: 'కనస 6 అకషరల', reenterPassword: 'పసవరడ మళల నమద చయడ', enterFullName: 'మ పరత పర నమద చయడ',
+            enterPhone: '+91 XXXXX XXXXX', dashboard: 'డషబరడ', navSahayak: 'నవ సహయక', activeCases: 'కరయశల కసల',
+            pendingAction: 'పడగ', totalCases: 'మతత కసల', startConsult: 'సపరదచడ పరరభచడ', consultDesc: 'AI చటటపరమన మరగదరశకతవ',
+            noCases: 'కసల లవ', noCasesDesc: 'మ మదట కసన నమద చయడనక ఫలగ టయబ న నకకడ', viewCase: 'కసన చడడ',
+            stationCommand: 'సటషన కమడ', filing: 'ఫలగ', caseTitle: 'కస శరషక', fileCase: 'కస ఫల చయడ', complainant: 'ఫరయదదర',
+            accused: 'నదతడ', evidence: 'సకషయ', chat: 'చట', settings: 'సటటగల', selectCase: 'కసన ఎచకడ',
+            enterCaseTitle: 'కస శరషకన నమద చయడ', enterComplainant: 'ఫరయదదర పర', enterAccused: 'నదతడ పర',
+            preferences: 'పరధనయతల', darkMode: 'డరక మడ', notifications: 'నటఫకషనల', language: 'భష',
+            privacySecurity: 'గపయత మరయ భదరత', regulations: 'నయమల', privacyPolicy: 'గపయత వధన',
+            dataProtection: 'డట రకషణ', legalCompliance: 'చటటపరమన అనగణయత', selectLanguage: 'భషన ఎచకడ',
+            logoutConfirm: 'మర లగఅవట చయలనకటననర?', success: 'వజయ', error: 'దష', caseFiled: 'కస వజయవతగ దఖల చయబడద!',
+            statusUpdated: 'సథత నవకరచబడద', caseMarkedAs: 'కస గరతచబడద',
+        },
+
+        // Gujarati, Kannada, Bengali, Punjabi - using shortened keys for file size
+        gu: { back: 'પછળ', save: 'સચવ', cancel: 'રદ કર', delete: 'કઢ નખ', edit: 'સપદત કર', submit: 'સબમટ કર', loading: 'લડ થઈ રહય છ...', login: 'લગન', signup: 'સઇન અપ', logout: 'લગઆઉટ', email: 'ઇમઇલ', password: 'પસવરડ', confirmPassword: 'પસવરડન પષટ કર', fullName: 'પર નમ', phoneNumber: 'ફન નબર', welcomeBack: 'પછ સવગત છ', createAccount: 'ખત બનવ', alreadyHaveAccount: 'પહલથ જ ખત છ?', dontHaveAccount: 'ખત નથ?', devMode: 'ડવલપર મડ', devModeDesc: 'પરમણકરણ તરત છડ દ', joinNavSahayak: 'નવ સહયકમ જડઓ', enterEmail: 'your.email@example.com', enterPassword: 'ઓછમ ઓછ 6 અકષર', reenterPassword: 'પસવરડ ફરથ દખલ કર', enterFullName: 'તમર પર નમ દખલ કર', enterPhone: '+91 XXXXX XXXXX', dashboard: 'ડશબરડ', navSahayak: 'નવ સહયક', activeCases: 'સકરય કસ', pendingAction: 'બક', totalCases: 'કલ કસ', startConsult: 'પરમરશ શર કર', consultDesc: 'AI કનન મરગદરશન', noCases: 'કઈ કસ નથ', noCasesDesc: 'તમર પરથમ કસ નધવ મટ ફઇલગ ટબ પર ટપ કર', viewCase: 'કસ જઓ', stationCommand: 'સટશન કમનડ', filing: 'ફઇલગ', caseTitle: 'કસ શરષક', fileCase: 'કસ ફઇલ કર', complainant: 'ફરયદ', accused: 'આરપ', evidence: 'પરવ', chat: 'ચટ', settings: 'સટગસ', selectCase: 'કસ પસદ કર', enterCaseTitle: 'કસ શરષક દખલ કર', enterComplainant: 'ફરયદન નમ', enterAccused: 'આરપન નમ', preferences: 'પસદગઓ', darkMode: 'ડરક મડ', notifications: 'સચનઓ', language: 'ભષ', privacySecurity: 'ગપનયત અન સરકષ', regulations: 'નયમ', privacyPolicy: 'ગપનયત નત', dataProtection: 'ડટ સરકષણ', legalCompliance: 'કનન પલન', selectLanguage: 'ભષ પસદ કર', logoutConfirm: 'શ તમ લગઆઉટ કરવ મગ છ?', success: 'સફળત', error: 'ભલ', caseFiled: 'કસ સફળતપરવક ફઇલ થય!', statusUpdated: 'સથત અપડટ થઈ', caseMarkedAs: 'કસ ચહનત થય' },
+        kn: { back: 'ಹದ', save: 'ಉಳಸ', cancel: 'ರದದ', delete: 'ಅಳಸ', edit: 'ಸಪದಸ', submit: 'ಸಲಲಸ', loading: 'ಲಡ ಆಗತತದ...', login: 'ಲاಗನ', signup: 'ಸನ ಅಪ', logout: 'ಲಗಟ', email: 'ಇಮಲ', password: 'ಪಸವರಡ', confirmPassword: 'ಪಸವರಡ ದಢಕರಸ', fullName: 'ಪರಣ ಹಸರ', phoneNumber: 'ಫನ ಸಖಯ', welcomeBack: 'ಮರಳ ಸವಗತ', createAccount: 'ಖತ ರಚಸ', alreadyHaveAccount: 'ಈಗಗಲ ಖತ ಇದಯ?', dontHaveAccount: 'ಖತ ಇಲಲವ?', devMode: 'ಡವಲಪರ ಮಡ', devModeDesc: 'ದಢಕರಣವನನ ತಕಷಣ ಬಟಟಬಡ', joinNavSahayak: 'ನವ ಸಹಯಕ ಗ ಸರ', enterEmail: 'your.email@example.com', enterPassword: 'ಕನಷಠ 6 ಅಕಷರಗಳ', reenterPassword: 'ಪಸವರಡ ಮರ ನಮದಸ', enterFullName: 'ನಮಮ ಪರಣ ಹಸರನನ ನಮದಸ', enterPhone: '+91 XXXXX XXXXX', dashboard: 'ಡಯಶಬರಡ', navSahayak: 'ನವ ಸಹಯಕ', activeCases: 'ಸಕರಯ ಪರಕರಣಗಳ', pendingAction: 'ಬಕ', totalCases: 'ಒಟಟ ಪರಕರಣಗಳ', startConsult: 'ಸಮಲಚನ ಪರರಭಸ', consultDesc: 'AI ಕನನ ಮರಗದರಶನ', noCases: 'ಯವದ ಪರಕರಣಗಳಲಲ', noCasesDesc: 'ನಮಮ ಮದಲ ಪರಕರಣವನನ ನದಯಸಲ ಫಲಗ ಟಯಬ ಅನನ ಟಯಪ ಮಡ', viewCase: 'ಪರಕರಣ ನಡ', stationCommand: 'ನಲದಣ ಆಜಞ', filing: 'ಫಲಗ', caseTitle: 'ಪರಕರಣ ಶರಷಕ', fileCase: 'ಪರಕರಣ ದಖಲಸ', complainant: 'ದರದರ', accused: 'ಆರಪ', evidence: 'ಸಕಷಯ', chat: 'ಚಟ', settings: 'ಸಟಟಗಗಳ', selectCase: 'ಪರಕರಣ ಆಯಕಮಡ', enterCaseTitle: 'ಪರಕರಣ ಶರಷಕಯನನ ನಮದಸ', enterComplainant: 'ದರದರ ಹಸರ', enterAccused: 'ಆರಪ ಹಸರ', preferences: 'ಆದಯತಗಳ', darkMode: 'ಡರಕ ಮಡ', notifications: 'ಅಧಸಚನಗಳ', language: 'ಭಷ', privacySecurity: 'ಗಪಯತ ಮತತ ಭದರತ', regulations: 'ನಯಮಗಳ', privacyPolicy: 'ಗಪಯತ ನತ', dataProtection: 'ಡಟ ಸರಕಷಣ', legalCompliance: 'ಕನನ ಅನಸರಣ', selectLanguage: 'ಭಷಯನನ ಆಯಕಮಡ', logoutConfirm: 'ನವ ಲಗಟ ಮಡಲ ಬಯಸವರ?', success: 'ಯಶಸಸ', error: 'ದಷ', caseFiled: 'ಪರಕರಣ ಯಶಸವಯಗ ದಖಲಗದ!', statusUpdated: 'ಸಥತ ನವಕರಸಲಗದ', caseMarkedAs: 'ಪರಕರಣ ಗರತಸಲಗದ' },
+        bn: {
+            back: 'পছন', save: 'সরকষণ', cancel: 'বতল', delete: 'মছন', edit: 'সমপদন', submit: 'জম দন', loading: 'লড হচছ...', login: 'লগইন', signup: 'সইন আপ', logout: 'লগআউট', email: 'ইমল', password: 'পসওযরড', confirmPassword: 'পসওযরড নশচত করন', fullName: 'পরণ নম', phoneNumber: 'ফন নমবর', welcomeBack: 'সবগত ফর', createAccount: 'অযকউনট তর করন', alreadyHaveAccount: 'ইতমধয অযকউনট আছ?', dontHaveAccount: 'অযকউনট নই?', devMode: 'ডভলপর মড',
+            devModeDesc: 'তাৎক্ষণিক প্রমাণীকরণ এড়িয়ে যান', joinNavSahayak: 'নব সহায়ক-এ যোগ দিন', enterEmail: 'your.email@example.com', enterPassword: 'সর্বনিম্ন 6 অক্ষর', reenterPassword: 'পাসওয়ার্ড পুনরায় লিখুন', enterFullName: 'আপনার পূর্ণ নাম লিখুন', enterPhone: '+91 XXXXX XXXXX', dashboard: 'ড্যাশবোর্ড', navSahayak: 'নব সহায়ক', activeCases: 'সক্রিয় মামলা', pendingAction: 'মুলতুবি', totalCases: 'মোট মামলা', startConsult: 'পরামর্শ শুরু করুন', consultDesc: 'AI আইনি নির্দেশনা', noCases: 'কোন মামলা নেই', noCasesDesc: 'আপনার প্রথম মামলা নথিবদ্ধ করতে ফাইলিং ট্যাব ট্যাপ করুন', viewCase: 'মামলা দেখুন', stationCommand: 'স্টেশন কমান্ড', filing: 'ফাইলিং', caseTitle: 'মামলার শিরোনাম', fileCase: 'মামলা দায়ের করুন', complainant: 'অভিযোগকারী', accused: 'অভিযুক্ত', evidence: 'প্রমাণ', chat: 'চ্যাট', settings: 'সেটিংস', selectCase: 'মামলা নির্বাচন করুন', enterCaseTitle: 'মামলার শিরোনাম লিখুন', enterComplainant: 'অভিযোগকারীর নাম', enterAccused: 'অভিযুক্তের নাম', preferences: 'পছন্দসমূহ', darkMode: 'ডার্ক মোড', notifications: 'বিজ্ঞপ্তি', language: 'ভাষা', privacySecurity: 'গোপনীয়তা এবং নিরাপত্তা', regulations: 'নিয়মকানুন', privacyPolicy: 'গোপনীয়তা নীতি', dataProtection: 'ডেটা সুরক্ষা', legalCompliance: 'আইনি সম্মতি', selectLanguage: 'ভাষা নির্বাচন করুন', logoutConfirm: 'আপনি কি লগআউট করতে চান?', success: 'সফলতা', error: 'ত্রুটি', caseFiled: 'মামলা সফলভাবে দায়ের হয়েছে!', statusUpdated: 'স্থিতি আপডেট হয়েছে', caseMarkedAs: 'মামলা চিহ্নিত হয়েছে'
+        },
+        pa: { back: 'ਪਿੱਛੇ', save: 'ਸੁਰੱਖਿਅਤ', cancel: 'ਰੱਦ', delete: 'ਮਿਟਾਓ', edit: 'ਸੋਧ', submit: 'ਜਮ੍ਹਾਂ', loading: 'ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...', login: 'ਲਾਗਿਨ', signup: 'ਸਾਈਨ ਅੱਪ', logout: 'ਲਾਗਆਉਟ', email: 'ਈਮਲ', password: 'ਪਾਸਵਰਡ', confirmPassword: 'ਪਾਸਵਰਡ ਪੁਸ਼ਟੀ ਕਰੋ', fullName: 'ਪੂਰਾ ਨਾਮ', phoneNumber: 'ਫ਼ੋਨ ਨੰਬਰ', welcomeBack: 'ਵਾਪਸ ਸਵਾਗਤ ਹੈ', createAccount: 'ਖਾਤਾ ਬਣਾਓ', alreadyHaveAccount: 'ਪਹਿਲਾਂ ਤੋਂ ਖਾਤਾ ਹੈ?', dontHaveAccount: 'ਖਾਤਾ ਨਹੀਂ ਹੈ?', devMode: 'ਡਿਵੈਲਪਰ ਮੋਡ', devModeDesc: 'ਪ੍ਰਮਾਣਿਕਤਾ ਤੁਰੰਤ ਛੱਡੋ', joinNavSahayak: 'ਨਵ ਸਹਾਇਕ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ', enterEmail: 'your.email@example.com', enterPassword: 'ਘੱਟੋ-ਘੱਟ 6 ਅੱਖਰ', reenterPassword: 'ਪਾਸਵਰਡ ਦੁਬਾਰਾ ਦਰਜ ਕਰੋ', enterFullName: 'ਆਪਣਾ ਪੂਰਾ ਨਾਮ ਦਰਜ ਕਰੋ', enterPhone: '+91 XXXXX XXXXX', dashboard: 'ਡੈਸ਼ਬੋਰਡ', navSahayak: 'ਨਵ ਸਹਾਇਕ', activeCases: 'ਸਰਗਰਮ ਕੇਸ', pendingAction: 'ਬਾਕੀ', totalCases: 'ਕੁੱਲ ਕੇਸ', startConsult: 'ਸਲਾਹ ਸ਼ੁਰੂ ਕਰੋ', consultDesc: 'AI ਕਾਨੂੰਨੀ ਮਾਰਗਦਰਸ਼ਨ', noCases: 'ਕੋਈ ਕੇਸ ਨਹੀਂ', noCasesDesc: 'ਆਪਣਾ ਪਹਿਲਾ ਕੇਸ ਰਜਿਸਟਰ ਕਰਨ ਲਈ ਫਾਈਲਿੰਗ ਟੈਬ ਨੂੰ ਟੈਪ ਕਰੋ', viewCase: 'ਕੇਸ ਦੇਖੋ', stationCommand: 'ਸਟੇਸ਼ਨ ਕਮਾਂਡ', filing: 'ਫਾਈਲਿੰਗ', caseTitle: 'ਕੇਸ ਸਿਰਲੇਖ', fileCase: 'ਕੇਸ ਦਾਇਰ ਕਰੋ', complainant: 'ਸ਼ਿਕਾਇਤਕਰਤਾ', accused: 'ਦੋਸ਼ੀ', evidence: 'ਸਬੂਤ', chat: 'ਚੈਟ', settings: 'ਸੈਟਿੰਗ', selectCase: 'ਕੇਸ ਚੁਣੋ', enterCaseTitle: 'ਕੇਸ ਸਿਰਲੇਖ ਦਰਜ ਕਰੋ', enterComplainant: 'ਸ਼ਿਕਾਇਤਕਰਤਾ ਦਾ ਨਾਮ', enterAccused: 'ਦੋਸ਼ੀ ਦਾ ਨਾਮ', preferences: 'ਤਰਜੀਹਾਂ', darkMode: 'ਗੂੜ੍ਹਾ ਮੋਡ', notifications: 'ਸੂਚਨਾਵਾਂ', language: 'ਭਾਸ਼ਾ', privacySecurity: 'ਪਰਾਈਵੇਸੀ ਅਤੇ ਸੁਰੱਖਿਆ', regulations: 'ਨਿਯਮ', privacyPolicy: 'ਪਰਾਈਵੇਸੀ ਨੀਤੀ', dataProtection: 'ਡੇਟਾ ਸੁਰੱਖਿਆ', legalCompliance: 'ਕਾਨੂੰਨੀ ਪਾਲਣਾ', selectLanguage: 'ਭਾਸ਼ਾ ਚੁਣੋ', logoutConfirm: 'ਕੀ ਤੁਸੀਂ ਲਾਗਆਉਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?', success: 'ਸਫਲਤਾ', error: 'ਗਲਤੀ', caseFiled: 'ਕੇਸ ਸਫਲਤਾਪੂਰਵਕ ਦਾਇਰ ਹੋਇਆ!', statusUpdated: 'ਸਥਿਤੀ ਅੱਪਡੇਟ ਹੋਈ', caseMarkedAs: 'ਕੇਸ ਮਾਰਕ ਕੀਤਾ ਗਿਆ' },
+    };
+
+    export type Language = 'en' | 'hi' | 'mr' | 'ta' | 'te' | 'gu' | 'kn' | 'bn' | 'pa';
+    export type TranslationKey = keyof typeof translations.en;

@@ -1,0 +1,44 @@
+// NEW LANGUAGE DATA - APPEND TO translations.ts BEFORE THE CLOSING BRACE
+
+    // Tamil (ta)
+    ta: {
+        back: 'பின்', save: 'சேமி', cancel: 'ரத்து', delete: 'அழி', edit: 'திருத்து', submit: 'சமர்ப்பி', loading: 'ஏற்றுகிறது...',
+        login: 'உள்நுழை', signup: 'பதிவு', logout: 'வெளியேறு', email: 'மின்னஞ்சல்', password: 'கடவுச்சொல்', confirmPassword: 'கடவுச்சொல்லை உறுதிப்படுத்து',
+        fullName: 'முழு பெயர்', phoneNumber: 'தொலைபேசி எண்', welcomeBack: 'மீண்டும் வரவேற்கிறோம்', createAccount: 'கணக்கை உருவாக்கு',
+        alreadyHaveAccount: 'ஏற்கனவே கணக்கு உள்ளதா?', dontHaveAccount: 'கணக்கு இல்லையா?', devMode: 'டெவலப்பர் பயன்முறை',
+        devModeDesc: 'அங்கீகாரத்தை உடனடியாக தவிர்க்கவும்', joinNavSahayak: 'நவ சாயக்கில் சேரவும்', enterEmail: 'your.email@example.com',
+        enterPassword: 'குறைந்தது 6 எழுத்துக்கள்', reenterPassword: 'கடவுச்சொல்லை மீண்டும் உள்ளிடவும்', enterFullName: 'உங்கள் முழு பெயரை உள்ளிடவும்',
+        enterPhone: '+91 XXXXX XXXXX', dashboard: 'டாஷ்போர்டு', navSahayak: 'நவ சாயக்', activeCases: 'செயல்படும் வழக்குகள்',
+        pendingAction: 'நிலுவையில்', totalCases: 'மொத்த வழக்குகள்', startConsult: 'ஆலோசனை தொடங்கு', consultDesc: 'AI சட்ட வழிகாட்டுதல்',
+        noCases: 'வழக்குகள் இல்லை', noCasesDesc: 'முதல் வழக்கை பதிவு செய்ய பைலிங் விருப்பத்தை தட்டவும்', viewCase: 'வழக்கைக் காண்க',
+        stationCommand: 'நிலைய கட்டளை', filing: 'பதிவு', caseTitle: 'வழக்கு தலைப்பு', fileCase: 'வழக்கு பதிவு', complainant: 'புகார்தாரர்',
+        accused: 'குற்றம்சாட்டப்பட்டவர்', evidence: 'சான்று', chat: 'அரட்டை', settings: 'அமைப்புகள்', selectCase: 'வழக்கைத் தேர்ந்தெடு',
+        enterCaseTitle: 'வழக்கு தலைப்பை உள்ளிடவும்', enterComplainant: 'புகார்தாரர் பெயர்', enterAccused: 'குற்றம்சாட்டப்பட்டவர் பெயர்',
+        preferences: 'விருப்பத்தேர்வுகள்', darkMode: 'இருண்ட பயன்முறை', notifications: 'அறிவிப்புகள்', language: 'மொழி',
+        privacySecurity: 'தனியுரிமை மற்றும் பாதுகாப்பு', regulations: 'விதிமுறைகள்', privacyPolicy: 'தனியுரிமை கொள்கை',
+        dataProtection: 'தரவு பாதுகாப்பு', legalCompliance: 'சட்ட இணக்கம்', selectLanguage: 'மொழியைத் தேர்ந்தெடு',
+        logoutConfirm: 'வெளியேற விரும்புகிறீர்களா?', success: 'வெற்றி', error: 'பிழை', caseFiled: 'வழக்கு பதிவு செய்யப்பட்டது!',
+        statusUpdated: 'நிலை புதுப்பிக்கப்பட்டது', caseMarkedAs: 'வழக்கு குறிக்கப்பட்டது',
+    },
+
+    // Telugu, Gujarati, Kannada, Bengali, Punjabi - Add similarly
+    te: {
+        back: 'వెనుకకు', save: 'సేవ్', cancel: 'రద్దు', delete: 'తొలగించు', edit: 'సవరించు', submit: 'సమర్పించు', loading: 'లోడ్ అవుతోంది...',
+        login: 'లాగిన్', signup: 'సైన్ అప్', logout: 'లాగ్అవుట్', email: 'ఇమెయిల్', password: 'పాస్‌వర్డ్', confirmPassword: 'పాస్‌వర్డ్ నిర్ధారించండి',
+        fullName: 'పూర్తి పేరు', phoneNumber: 'ఫోన్ నంబర్', welcomeBack: 'తిరిగి స్వాగతం', createAccount: 'ఖాతా సృష్టించండి',
+        alreadyHaveAccount: 'ఇప్పటికే ఖాతా ఉందా?', dontHaveAccount: 'ఖాతా లేదా?', devMode: 'డెవలపర్ మోడ్',
+        devModeDesc: 'ప్రామాణీకరణను తక్షణమే దాటవేయండి', joinNavSahayak: 'నవ సహాయక్ లో చేరండి', enterEmail: 'your.email@example.com',
+        enterPassword: 'కనీసం 6 అక్షరాలు', reenterPassword: 'పాస్‌వర్డ్ మళ్లీ నమోదు చేయండి', enterFullName: 'మీ పూర్తి పేరు నమోదు చేయండి',
+        enterPhone: '+91 XXXXX XXXXX', dashboard: 'డాష్‌బోర్డ్', navSahayak: 'నవ సహాయక్', activeCases: 'క్రియాశీల కేసులు',
+        pendingAction: 'పెండింగ్', totalCases: 'మొత్తం కేసులు', startConsult: 'సంప్రదించడం ప్రారంభించండి', consultDesc: 'AI చట్టపరమైన మార్గదర్శకత్వం',
+        noCases: 'కేసులు లేవు', noCasesDesc: 'మీ మొదటి కేసును నమోదు చేయడానికి ఫైలింగ్ ట్యాబ్ ను నొక్కండి', viewCase: 'కేసును చూడండి',
+        stationCommand: 'స్టేషన్ కమాండ్', filing: 'ఫైలింగ్', caseTitle: 'కేసు శీర్షిక', fileCase: 'కేసు ఫైల్ చేయండి', complainant: 'ఫిర్యాదుదారు',
+        accused: 'నిందితుడు', evidence: 'సాక్ష్యం', chat: 'చాట్', settings: 'సెట్టింగులు', selectCase: 'కేసును ఎంచుకోండి',
+        enterCaseTitle: 'కేసు శీర్షికను నమోదు చేయండి', enterComplainant: 'ఫిర్యాదుదారు పేరు', enterAccused: 'నిందితుడు పేరు',
+        preferences: 'ప్రాధాన్యతలు', darkMode: 'డార్క్ మోడ్', notifications: 'నోటిఫికేషన్లు', language: 'భాష',
+        privacySecurity: 'గోప్యత మరియు భద్రత', regulations: 'నియమాలు', privacyPolicy: 'గోప్యతా విధానం',
+        dataProtection: 'డేటా రక్షణ', legalCompliance: 'చట్టపరమైన అనుగుణ్యత', selectLanguage: 'భాషను ఎంచుకోండి',
+        logoutConfirm: 'మీరు లాగ్అవుట్ చేయాలనుకుంటున్నారా?', success: 'విజయం', error: 'దోషం', caseFiled: 'కేసు విజయవంతంగా దాఖలు చేయబడింది!',
+        statusUpdated: 'స్థితి నవీకరించబడింది', caseMarkedAs: 'కేసు గుర్తించబడింది',
+    },
+    gu: {}, kn: {}, bn: {}, pa: {} // Placeholders

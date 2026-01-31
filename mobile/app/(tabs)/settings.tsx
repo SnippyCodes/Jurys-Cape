@@ -39,6 +39,12 @@ export default function Settings() {
         { code: 'en' as Language, name: 'English', flag: '🇬🇧' },
         { code: 'hi' as Language, name: 'हिंदी', flag: '🇮🇳' },
         { code: 'mr' as Language, name: 'मराठी', flag: '🇮🇳' },
+        { code: 'ta' as Language, name: 'தமிழ்', flag: '🇮🇳' },
+        { code: 'te' as Language, name: 'తెలుగు', flag: '🇮🇳' },
+        { code: 'gu' as Language, name: 'ગુજરાતી', flag: '🇮🇳' },
+        { code: 'kn' as Language, name: 'ಕನ್ನಡ', flag: '🇮🇳' },
+        { code: 'bn' as Language, name: 'বাংলা', flag: '🇮🇳' },
+        { code: 'pa' as Language, name: 'ਪੰਜਾਬੀ', flag: '🇮🇳' },
     ];
 
     return (
