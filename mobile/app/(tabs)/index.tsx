@@ -164,7 +164,7 @@ export default function Dashboard() {
                 </Text>
 
                 {/* Footer: Status Badge & Action */}
-                <View style={tw`flex-row items-center justify-between pt-4 border-t`, { borderColor: colors.border } >
+                <View style={[tw`flex-row items-center justify-between pt-4 border-t`, { borderColor: colors.border }]}>
                     <View style={[tw`px-3 py-1.5 rounded-full border`, { backgroundColor: isDarkMode ? colors.primaryLight : '#eef2ff', borderColor: isDarkMode ? '#4338ca' : '#c7d2fe' }]}>
                         <Text style={[tw`text-xs font-bold`, { color: isDarkMode ? '#a5b4fc' : '#4f46e5' }]}>{item.status}</Text>
                     </View>
@@ -173,65 +173,65 @@ export default function Dashboard() {
                         <Feather name="arrow-right" size={16} color={colors.textTertiary} />
                     </View>
                 </View>
-            </TouchableOpacity >
+            </TouchableOpacity>
         );
-};
+    };
 
-const renderEmpty = () => (
-    <View style={tw`items-center justify-center py-20`}>
-        <View style={[tw`w-20 h-20 rounded-full items-center justify-center mb-4`, { backgroundColor: isDarkMode ? colors.surfaceAlt : '#f1f5f9' }]}>
-            <Feather name="inbox" size={40} color={colors.textTertiary} />
-        </View>
-        <Text style={[tw`text-lg font-bold mb-1`, { color: colors.text }]}>{t('noCases')}</Text>
-        <Text style={[tw`text-center px-10`, { color: colors.textSecondary }]}>{t('noCasesDesc')}</Text>
-    </View>
-);
-
-return (
-    <SafeAreaView style={[tw`flex-1`, { backgroundColor: colors.background }]}>
-        <Stack.Screen options={{ headerShown: false }} />
-        <FlatList
-            data={cases}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
-            ListHeaderComponent={renderHeader}
-            ListEmptyComponent={renderEmpty}
-            contentContainerStyle={tw`px-6 pt-6 pb-10`}
-            showsVerticalScrollIndicator={false}
-        />
-
-        {/* Status Update Modal */}
-        <Modal
-            visible={showStatusMenu}
-            transparent
-            animationType="slide"
-            onRequestClose={() => setShowStatusMenu(false)}
-        >
-            <View style={tw`flex-1 justify-end bg-black/50`}>
-                <View style={[tw`rounded-t-3xl p-6`, { backgroundColor: colors.surface }]}>
-                    <View style={tw`flex-row items-center justify-between mb-6`}>
-                        <Text style={[tw`text-2xl font-bold`, { color: colors.text }]}>Update Status</Text>
-                        <TouchableOpacity onPress={() => setShowStatusMenu(false)}>
-                            <Feather name="x" size={24} color={colors.textSecondary} />
-                        </TouchableOpacity>
-                    </View>
-
-                    {statusOptions.map((status) => (
-                        <TouchableOpacity
-                            key={status.value}
-                            onPress={() => handleStatusUpdate(status.value)}
-                            style={[tw`flex-row items-center gap-4 p-4 rounded-2xl mb-2`, { backgroundColor: isDarkMode ? colors.cardBg : '#f8fafc' }]}
-                        >
-                            <View style={[tw`w-12 h-12 rounded-full items-center justify-center`, { backgroundColor: `${status.color}15` }]}>
-                                <Feather name={status.icon as any} size={22} color={status.color} />
-                            </View>
-                            <Text style={[tw`flex-1 font-bold text-base`, { color: colors.text }]}>{status.label}</Text>
-                            <Feather name="chevron-right" size={20} color={colors.textTertiary} />
-                        </TouchableOpacity>
-                    ))}
-                </View>
+    const renderEmpty = () => (
+        <View style={tw`items-center justify-center py-20`}>
+            <View style={[tw`w-20 h-20 rounded-full items-center justify-center mb-4`, { backgroundColor: isDarkMode ? colors.surfaceAlt : '#f1f5f9' }]}>
+                <Feather name="inbox" size={40} color={colors.textTertiary} />
             </View>
-        </Modal>
-    </SafeAreaView>
-);
+            <Text style={[tw`text-lg font-bold mb-1`, { color: colors.text }]}>{t('noCases')}</Text>
+            <Text style={[tw`text-center px-10`, { color: colors.textSecondary }]}>{t('noCasesDesc')}</Text>
+        </View>
+    );
+
+    return (
+        <SafeAreaView style={[tw`flex-1`, { backgroundColor: colors.background }]}>
+            <Stack.Screen options={{ headerShown: false }} />
+            <FlatList
+                data={cases}
+                keyExtractor={(item) => item.id}
+                renderItem={renderItem}
+                ListHeaderComponent={renderHeader}
+                ListEmptyComponent={renderEmpty}
+                contentContainerStyle={tw`px-6 pt-6 pb-10`}
+                showsVerticalScrollIndicator={false}
+            />
+
+            {/* Status Update Modal */}
+            <Modal
+                visible={showStatusMenu}
+                transparent
+                animationType="slide"
+                onRequestClose={() => setShowStatusMenu(false)}
+            >
+                <View style={tw`flex-1 justify-end bg-black/50`}>
+                    <View style={[tw`rounded-t-3xl p-6`, { backgroundColor: colors.surface }]}>
+                        <View style={tw`flex-row items-center justify-between mb-6`}>
+                            <Text style={[tw`text-2xl font-bold`, { color: colors.text }]}>Update Status</Text>
+                            <TouchableOpacity onPress={() => setShowStatusMenu(false)}>
+                                <Feather name="x" size={24} color={colors.textSecondary} />
+                            </TouchableOpacity>
+                        </View>
+
+                        {statusOptions.map((status) => (
+                            <TouchableOpacity
+                                key={status.value}
+                                onPress={() => handleStatusUpdate(status.value)}
+                                style={[tw`flex-row items-center gap-4 p-4 rounded-2xl mb-2`, { backgroundColor: isDarkMode ? colors.cardBg : '#f8fafc' }]}
+                            >
+                                <View style={[tw`w-12 h-12 rounded-full items-center justify-center`, { backgroundColor: `${status.color}15` }]}>
+                                    <Feather name={status.icon as any} size={22} color={status.color} />
+                                </View>
+                                <Text style={[tw`flex-1 font-bold text-base`, { color: colors.text }]}>{status.label}</Text>
+                                <Feather name="chevron-right" size={20} color={colors.textTertiary} />
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </View>
+            </Modal>
+        </SafeAreaView>
+    );
 }
