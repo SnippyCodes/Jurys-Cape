@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, TouchableOpacity, FlatList } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import tw from 'twrnc';
@@ -22,81 +22,141 @@ export default function CaseDetails() {
         );
     }
 
+    const getTypeIcon = (type: string) => {
+        switch (type) {
+            case 'image': return 'image';
+            case 'audio': return 'mic';
+            case 'video': return 'video';
+            default: return 'file-text';
+        }
+    };
+
+    const getTypeColor = (type: string) => {
+        switch (type) {
+            case 'image': return 'text-blue-600 bg-blue-50 border-blue-100';
+            case 'audio': return 'text-violet-600 bg-violet-50 border-violet-100';
+            case 'video': return 'text-rose-600 bg-rose-50 border-rose-100';
+            default: return 'text-amber-600 bg-amber-50 border-amber-100';
+        }
+    };
+
     return (
         <SafeAreaView style={tw`flex-1 bg-slate-50`}>
-            {/* Header */}
-            <View style={tw`px-6 pt-2 pb-4 bg-white border-b border-slate-100 flex-row items-center gap-4 shadow-sm`}>
-                <TouchableOpacity onPress={() => router.back()} style={tw`w-10 h-10 rounded-full bg-slate-50 items-center justify-center border border-slate-100`}>
-                    <Feather name="arrow-left" size={20} color="#0f172a" />
-                </TouchableOpacity>
-                <View style={tw`flex-1`}>
-                    <Text style={tw`text-slate-400 text-[10px] font-bold uppercase tracking-wider`}>Case #{caseData.id}</Text>
-                    <Text numberOfLines={1} style={tw`text-slate-900 text-xl font-bold tracking-tight`}>{caseData.title}</Text>
+            <Stack.Screen options={{ headerShown: false }} />
+
+            {/* New Integrated Header */}
+            <View style={tw`bg-white border-b border-slate-100 pt-2 pb-4 px-6 shadow-sm z-10`}>
+                <View style={tw`flex-row items-center justify-between mb-4`}>
+                    <TouchableOpacity onPress={() => router.back()} style={tw`w-10 h-10 rounded-full bg-slate-50 items-center justify-center border border-slate-100`}>
+                        <Feather name="arrow-left" size={20} color="#0f172a" />
+                    </TouchableOpacity>
+                    <View style={tw`bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100`}>
+                        <Text style={tw`text-indigo-700 text-xs font-bold uppercase`}>{caseData.status}</Text>
+                    </View>
                 </View>
-                <View style={tw`bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100`}>
-                    <Text style={tw`text-indigo-700 text-xs font-bold uppercase`}>{caseData.status}</Text>
+
+                <View>
+                    <Text style={tw`text-slate-400 text-xs font-bold uppercase tracking-widest mb-1`}>Case No. {caseData.id}</Text>
+                    <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight leading-8`}>{caseData.title}</Text>
                 </View>
             </View>
 
-            <ScrollView contentContainerStyle={tw`p-6 gap-6 pb-20`}>
+            <ScrollView contentContainerStyle={tw`p-6 gap-6 pb-32`}>
 
+                {/* AI Executive Summary Card */}
                 {caseData.aiAnalysis ? (
-                    <>
-                        {/* Summary Card */}
-                        <View style={tw`bg-white p-6 rounded-[24px] border border-indigo-100 shadow-md shadow-indigo-100/50`}>
-                            <View style={tw`flex-row items-center gap-3 mb-4`}>
-                                <View style={tw`w-10 h-10 rounded-full bg-indigo-50 items-center justify-center border border-indigo-100`}>
+                    <View style={tw`bg-white p-6 rounded-[24px] border border-indigo-100 shadow-lg shadow-indigo-100/40`}>
+                        <View style={tw`flex-row items-center justify-between mb-4`}>
+                            <View style={tw`flex-row items-center gap-3`}>
+                                <View style={tw`w-10 h-10 rounded-xl bg-indigo-50 items-center justify-center border border-indigo-100`}>
                                     <Feather name="cpu" size={20} color="#4f46e5" />
                                 </View>
-                                <Text style={tw`text-indigo-950 font-bold text-xl`}>AI Summary</Text>
+                                <Text style={tw`text-indigo-950 font-bold text-lg`}>AI Analysis</Text>
                             </View>
-                            <Text style={tw`text-slate-600 text-base leading-relaxed`}>
-                                {caseData.aiAnalysis.summary || "No summary available."}
-                            </Text>
+                            <View style={tw`bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100`}>
+                                <Text style={tw`text-emerald-700 text-[10px] font-bold uppercase`}>Live Update</Text>
+                            </View>
                         </View>
-
-                        {/* Charges Grid */}
-                        {caseData.aiAnalysis.potential_bns_sections && (
-                            <View>
-                                <Text style={tw`text-slate-900 font-bold text-lg mb-4 ml-1`}>Potential Charges</Text>
-                                <View style={tw`flex-row flex-wrap gap-3`}>
-                                    {caseData.aiAnalysis.potential_bns_sections.map((section: string, index: number) => (
-                                        <View key={index} style={tw`bg-rose-50 border border-rose-100 px-4 py-3 rounded-2xl flex-row items-center gap-2`}>
-                                            <Feather name="alert-triangle" size={16} color="#e11d48" />
-                                            <Text style={tw`text-rose-900 font-bold text-sm`}>{section}</Text>
-                                        </View>
-                                    ))}
-                                </View>
-                            </View>
-                        )}
-
-                        {/* Timeline */}
-                        {caseData.aiAnalysis.chronological_facts && (
-                            <View style={tw`bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm`}>
-                                <Text style={tw`text-slate-900 font-bold text-lg mb-6`}>Chronology</Text>
-                                <View style={tw`gap-6 pl-2 border-l-2 border-slate-100 ml-2`}>
-                                    {caseData.aiAnalysis.chronological_facts.map((fact: string, index: number) => (
-                                        <View key={index} style={tw`pl-4 relative`}>
-                                            {/* Dot */}
-                                            <View style={tw`absolute -left-[13px] top-1 w-4 h-4 rounded-full bg-white border-4 border-indigo-500`} />
-                                            <Text style={tw`text-slate-600 leading-snug text-base`}>{fact}</Text>
-                                        </View>
-                                    ))}
-                                </View>
-                            </View>
-                        )}
-                    </>
+                        <Text style={tw`text-slate-600 text-base leading-relaxed`}>
+                            {caseData.aiAnalysis.summary || "No summary available."}
+                        </Text>
+                    </View>
                 ) : (
-                    <View style={tw`bg-white p-8 rounded-[24px] items-center justify-center border border-slate-100 dashed border-2`}>
-                        <Feather name="loader" size={32} color="#94a3b8" style={tw`mb-4 animate-spin`} />
+                    <View style={tw`bg-white p-6 rounded-[24px] border border-slate-100 dashed border-2 items-center justify-center py-10`}>
+                        <Feather name="cpu" size={32} color="#cbd5e1" style={tw`mb-3`} />
                         <Text style={tw`text-slate-400 font-bold`}>Waiting for AI Analysis...</Text>
                     </View>
                 )}
 
-                {/* Original Description Accordion */}
-                <View style={tw`bg-slate-50 p-6 rounded-[24px] border border-slate-100`}>
-                    <Text style={tw`text-slate-400 font-bold text-xs uppercase tracking-widest mb-3`}>Raw Case File</Text>
-                    <Text style={tw`text-slate-600 italic leading-relaxed`}>{caseData.description}</Text>
+                {/* Evidence Section (New!) */}
+                <View>
+                    <View style={tw`flex-row items-center justify-between mb-4 ml-1`}>
+                        <Text style={tw`text-slate-900 font-bold text-lg`}>Case Evidence</Text>
+                        <TouchableOpacity onPress={() => router.push({ pathname: '/evidence/[id]', params: { id: caseData.id } })}>
+                            <Text style={tw`text-indigo-600 text-xs font-bold`}>Manage</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {caseData.evidence && caseData.evidence.length > 0 ? (
+                        <View style={tw`gap-3`}>
+                            {caseData.evidence.map((item, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    onPress={() => item.analysis && router.push({ pathname: '/evidence/detail', params: { caseId: caseData.id, evidenceId: item.id } })}
+                                    style={tw`bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex-row items-center gap-4`}
+                                >
+                                    <View style={tw`w-10 h-10 rounded-xl items-center justify-center border ${getTypeColor(item.type)}`}>
+                                        <Feather name={getTypeIcon(item.type) as any} size={18} style={tw`${getTypeColor(item.type).split(' ')[0]}`} />
+                                    </View>
+                                    <View style={tw`flex-1`}>
+                                        <Text style={tw`text-slate-900 font-bold text-sm mb-0.5`}>{item.title}</Text>
+                                        <Text style={tw`text-slate-400 text-[10px] font-bold uppercase`}>{item.status}</Text>
+                                    </View>
+                                    <Feather name="chevron-right" size={16} color="#cbd5e1" />
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    ) : (
+                        <View style={tw`bg-slate-50 p-6 rounded-2xl border border-slate-100 items-center`}>
+                            <Text style={tw`text-slate-400 text-sm font-medium`}>No evidence attached yet.</Text>
+                        </View>
+                    )}
+                </View>
+
+                {/* Chronology & Timeline */}
+                {caseData.aiAnalysis && caseData.aiAnalysis.chronological_facts && (
+                    <View style={tw`bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm`}>
+                        <Text style={tw`text-slate-900 font-bold text-lg mb-6`}>Chronology</Text>
+                        <View style={tw`gap-8 pl-2 border-l-2 border-slate-100 ml-2`}>
+                            {caseData.aiAnalysis.chronological_facts.map((fact: string, index: number) => (
+                                <View key={index} style={tw`pl-6 relative`}>
+                                    <View style={tw`absolute -left-[11px] top-1.5 w-3 h-3 rounded-full bg-white border-[3px] border-slate-300`} />
+                                    <Text style={tw`text-slate-600 leading-snug text-sm font-medium`}>{fact}</Text>
+                                </View>
+                            ))}
+                        </View>
+                    </View>
+                )}
+
+                {/* Potential Charges */}
+                {caseData.aiAnalysis && caseData.aiAnalysis.potential_bns_sections && (
+                    <View>
+                        <Text style={tw`text-slate-900 font-bold text-lg mb-4 ml-1`}>Legal Sections</Text>
+                        <View style={tw`flex-row flex-wrap gap-2`}>
+                            {caseData.aiAnalysis.potential_bns_sections.map((section: string, index: number) => (
+                                <View key={index} style={tw`bg-rose-50 border border-rose-100 px-3 py-2 rounded-xl flex-row items-center gap-2`}>
+                                    <Feather name="alert-circle" size={14} color="#e11d48" />
+                                    <Text style={tw`text-rose-900 font-bold text-xs`}>{section}</Text>
+                                </View>
+                            ))}
+                        </View>
+                    </View>
+                )}
+
+                {/* Original Description */}
+                <View style={tw`bg-slate-100 p-6 rounded-[24px]`}>
+                    <Text style={tw`text-slate-400 font-bold text-xs uppercase tracking-widest mb-2`}>Original Report</Text>
+                    <Text style={tw`text-slate-600 italic leading-relaxed text-sm`}>{caseData.description}</Text>
                 </View>
 
             </ScrollView>
