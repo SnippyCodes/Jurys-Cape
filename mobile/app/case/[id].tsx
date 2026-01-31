@@ -1,10 +1,9 @@
-import { View, Text, ScrollView, SafeAreaView, TouchableOpacity, FlatList, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, TouchableOpacity, FlatList, Alert, ActivityIndicator, Share } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useCases } from '../context/CaseContext';
 import * as FileSystem from 'expo-file-system';
-import * as Sharing from 'expo-sharing';
 import { useState } from 'react';
 
 export default function CaseDetails() {
@@ -96,15 +95,14 @@ Date: ${new Date().toLocaleString()}
 
             await FileSystem.writeAsStringAsync(fileUri, caseContent);
 
-            // Share the file
-            const canShare = await Sharing.isAvailableAsync();
-            if (canShare) {
-                await Sharing.shareAsync(fileUri, {
-                    mimeType: 'text/plain',
-                    dialogTitle: 'Save or Share Case File',
+            // Share the file using React Native Share
+            try {
+                await Share.share({
+                    message: caseContent,
+                    title: `Case ${caseData.id} - ${caseData.title}`,
                 });
-            } else {
-                Alert.alert('Success', `Case file saved to: ${fileUri}`);
+            } catch (shareError) {
+                console.log('Share cancelled or failed:', shareError);
             }
         } catch (error) {
             console.error('Download error:', error);
