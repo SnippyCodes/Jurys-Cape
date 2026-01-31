@@ -8,6 +8,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { CaseProvider } from './context/CaseContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -62,10 +63,12 @@ export default function RootLayout() {
     }
 
     return (
-        <AuthProvider>
-            <CaseProvider>
-                <RootLayoutNav />
-            </CaseProvider>
-        </AuthProvider>
+        <LanguageProvider>
+            <AuthProvider>
+                <CaseProvider>
+                    <RootLayoutNav />
+                </CaseProvider>
+            </AuthProvider>
+        </LanguageProvider>
     );
 }

@@ -92,7 +92,7 @@ Date: ${new Date().toLocaleString()}
 
             // Create file
             const fileName = `Case_${caseData.id}_${caseData.title.replace(/\s+/g, '_')}.txt`;
-            const fileUri = FileSystem.cacheDirectory + fileName;
+            const fileUri = (FileSystem as any).cacheDirectory + fileName;
 
             await FileSystem.writeAsStringAsync(fileUri, caseContent);
 
