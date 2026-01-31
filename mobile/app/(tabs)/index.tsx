@@ -21,6 +21,10 @@ export default function Dashboard() {
         Alert.alert('Status Updated', `Case marked as ${status}`);
     };
 
+    // Calculate dynamic stats
+    const activeCases = cases.filter(c => c.status === 'Active').length;
+    const pendingCases = cases.filter(c => c.status === 'Pending').length;
+
     const renderHeader = () => (
         <View style={tw`mb-2`}>
             {/* Integrated Header - Medium Size */}
@@ -41,7 +45,7 @@ export default function Dashboard() {
                         <Feather name="briefcase" size={20} color="#3b82f6" />
                     </View>
                     <View>
-                        <Text style={tw`text-slate-900 text-3xl font-bold mb-0.5 tracking-tight`}>12</Text>
+                        <Text style={tw`text-slate-900 text-3xl font-bold mb-0.5 tracking-tight`}>{activeCases}</Text>
                         <Text style={tw`text-slate-500 text-xs font-bold uppercase tracking-wide`}>Active Cases</Text>
                     </View>
                 </View>
@@ -50,7 +54,7 @@ export default function Dashboard() {
                         <Feather name="clock" size={20} color="#f59e0b" />
                     </View>
                     <View>
-                        <Text style={tw`text-slate-900 text-3xl font-bold mb-0.5 tracking-tight`}>5</Text>
+                        <Text style={tw`text-slate-900 text-3xl font-bold mb-0.5 tracking-tight`}>{pendingCases}</Text>
                         <Text style={tw`text-slate-500 text-xs font-bold uppercase tracking-wide`}>Pending Action</Text>
                     </View>
                 </View>
