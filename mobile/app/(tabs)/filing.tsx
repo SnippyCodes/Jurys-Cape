@@ -1,9 +1,67 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import { Stack } from 'expo-router';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
+import { Stack, useRouter } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import tw from 'twrnc';
+import { useState } from 'react';
+import { api } from '../services/api';
+import { useCases } from '../context/CaseContext';
 
 export default function Filing() {
+    const router = useRouter();
+    const { addCase } = useCases();
+    const [loading, setLoading] = useState(false);
+
+    // Form State
+    const [title, setTitle] = useState('');
+    const [complainant, setComplainant] = useState('');
+    const [suspect, setSuspect] = useState('');
+    const [incidentType, setIncidentType] = useState('');
+    const [location, setLocation] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [description, setDescription] = useState('');
+
+    const handleFileReport = async () => {
+        if (!title || !description) {
+            Alert.alert('Missing Fields', 'Please provide at least a Case Title and Description.');
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            // 1. Analyze with AI
+            const analysis = await api.analyzeCase(description);
+
+            // 2. Create Case Object
+            const newCase: any = {
+                id: Math.floor(Math.random() * 10000).toString(),
+                title: title,
+                type: incidentType || 'General',
+                priority: 'High', // Defaulting to High for new reports
+                date: 'Today',
+                status: 'Active',
+                description: description,
+                summary: analysis.summary,
+                aiAnalysis: analysis
+            };
+
+            // 3. Add to Global State
+            addCase(newCase);
+
+            // 4. Navigate to Dashboard
+            Alert.alert('Success', 'Case filed and AI report generated.', [
+                { text: 'View Dashboard', onPress: () => router.push('/(tabs)') }
+            ]);
+
+        } catch (error) {
+            Alert.alert('Error', 'Failed to generate AI report. Please try again.');
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <SafeAreaView style={tw`flex-1 bg-slate-50`}>
             <Stack.Screen options={{ headerShown: false }} />
@@ -28,6 +86,8 @@ export default function Filing() {
                                 placeholder="e.g. State vs. Information"
                                 placeholderTextColor="#94a3b8"
                                 style={tw`flex-1 text-slate-900 font-bold text-base`}
+                                value={title}
+                                onChangeText={setTitle}
                             />
                         </View>
                     </View>
@@ -42,6 +102,8 @@ export default function Filing() {
                                     placeholder="Complainant"
                                     placeholderTextColor="#94a3b8"
                                     style={tw`flex-1 text-slate-900 font-medium text-sm`}
+                                    value={complainant}
+                                    onChangeText={setComplainant}
                                 />
                             </View>
                         </View>
@@ -53,6 +115,8 @@ export default function Filing() {
                                     placeholder="Suspect"
                                     placeholderTextColor="#94a3b8"
                                     style={tw`flex-1 text-slate-900 font-medium text-sm`}
+                                    value={suspect}
+                                    onChangeText={setSuspect}
                                 />
                             </View>
                         </View>
@@ -67,6 +131,8 @@ export default function Filing() {
                                 placeholder="e.g. Theft, Assault, Cyber Crime"
                                 placeholderTextColor="#94a3b8"
                                 style={tw`flex-1 text-slate-900 font-medium text-base`}
+                                value={incidentType}
+                                onChangeText={setIncidentType}
                             />
                         </View>
                     </View>
@@ -80,6 +146,8 @@ export default function Filing() {
                                 placeholder="Enter location address"
                                 placeholderTextColor="#94a3b8"
                                 style={tw`flex-1 text-slate-900 font-medium text-base`}
+                                value={location}
+                                onChangeText={setLocation}
                             />
                         </View>
                     </View>
@@ -94,6 +162,8 @@ export default function Filing() {
                                     placeholder="DD/MM/YY"
                                     placeholderTextColor="#94a3b8"
                                     style={tw`flex-1 text-slate-900 font-medium text-base`}
+                                    value={date}
+                                    onChangeText={setDate}
                                 />
                             </View>
                         </View>
@@ -105,6 +175,8 @@ export default function Filing() {
                                     placeholder="HH:MM"
                                     placeholderTextColor="#94a3b8"
                                     style={tw`flex-1 text-slate-900 font-medium text-base`}
+                                    value={time}
+                                    onChangeText={setTime}
                                 />
                             </View>
                         </View>
@@ -121,16 +193,28 @@ export default function Filing() {
                                 numberOfLines={4}
                                 style={tw`text-slate-900 font-medium h-24 text-base p-0`}
                                 textAlignVertical="top"
+                                value={description}
+                                onChangeText={setDescription}
                             />
                         </View>
                     </View>
                 </View>
 
                 {/* Submit Button - Fixed Visibility & Size */}
-                <TouchableOpacity style={tw`shadow-xl shadow-indigo-500/40 active:scale-[0.98] transition-all`}>
+                <TouchableOpacity
+                    onPress={handleFileReport}
+                    disabled={loading}
+                    style={tw`shadow-xl shadow-indigo-500/40 active:scale-[0.98] transition-all ${loading ? 'opacity-80' : ''}`}
+                >
                     <View style={tw`bg-indigo-600 p-5 rounded-[24px] flex-row items-center justify-center gap-3`}>
-                        <Text style={tw`text-white font-bold text-lg tracking-wide`}>File Report</Text>
-                        <Feather name="arrow-right" size={24} color="#fff" />
+                        {loading ? (
+                            <ActivityIndicator color="#fff" />
+                        ) : (
+                            <>
+                                <Text style={tw`text-white font-bold text-lg tracking-wide`}>File Report</Text>
+                                <Feather name="arrow-right" size={24} color="#fff" />
+                            </>
+                        )}
                     </View>
                 </TouchableOpacity>
             </ScrollView>

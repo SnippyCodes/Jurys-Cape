@@ -2,17 +2,13 @@ import { View, Text, FlatList, TouchableOpacity, SafeAreaView } from 'react-nati
 import { Stack, useRouter } from 'expo-router';
 import { Feather, MaterialIcons } from '@expo/vector-icons';
 import tw from 'twrnc';
+import { useCases } from '../context/CaseContext';
 
-const cases = [
-    { id: '402', title: 'State v. Sharma', type: 'Criminal Theft', priority: 'Critical', date: 'Today, 10:00 AM', status: 'Active' },
-    { id: '399', title: 'Land Dispute: Patil Estimate', type: 'Civil Litigation', priority: 'Medium', date: 'Yesterday', status: 'Pending' },
-    { id: '388', title: 'Traffic Violation #2991', type: 'Traffic', priority: 'Low', date: 'Jan 29', status: 'Review' },
-    { id: '375', title: 'Cyber Fraud Investigation', type: 'Cyber Crime', priority: 'High', date: 'Jan 25', status: 'Active' },
-    { id: '362', title: 'Noise Complaint: Metro', type: 'Civil', priority: 'Low', date: 'Jan 22', status: 'Closed' },
-];
+
 
 export default function Dashboard() {
     const router = useRouter();
+    const { cases } = useCases();
     const date = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 
     const renderHeader = () => (
@@ -80,7 +76,10 @@ export default function Dashboard() {
     );
 
     const renderItem = ({ item }: { item: typeof cases[0] }) => (
-        <TouchableOpacity style={tw`bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex-row items-center justify-between active:scale-[0.99] transition-all mb-3`}>
+        <TouchableOpacity
+            onPress={() => router.push({ pathname: '/case/[id]', params: { id: item.id } })}
+            style={tw`bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex-row items-center justify-between active:scale-[0.99] transition-all mb-3`}
+        >
             <View style={tw`flex-1`}>
                 <View style={tw`flex-row items-center gap-2 mb-1.5`}>
                     <View style={tw`bg-slate-50 px-2.5 py-0.5 rounded-md border border-slate-200`}>

@@ -6,6 +6,7 @@ import { useFonts, PlayfairDisplay_400Regular, PlayfairDisplay_700Bold } from '@
 import { Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { CaseProvider } from './context/CaseContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -29,11 +30,14 @@ export default function RootLayout() {
     }
 
     return (
-        <View style={tw`flex-1 bg-black`}>
-            <StatusBar style="light" />
-            <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#000' } }}>
-                <Stack.Screen name="(tabs)" />
-            </Stack>
-        </View>
+        <CaseProvider>
+            <View style={tw`flex-1 bg-black`}>
+                <StatusBar style="light" />
+                <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#000' } }}>
+                    <Stack.Screen name="(tabs)" />
+                    <Stack.Screen name="case/[id]" options={{ presentation: 'modal' }} />
+                </Stack>
+            </View>
+        </CaseProvider>
     );
 }
