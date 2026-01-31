@@ -4,6 +4,7 @@ import { Feather, MaterialIcons } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useCases } from '../context/CaseContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import { useState } from 'react';
 
 
@@ -12,6 +13,7 @@ export default function Dashboard() {
     const router = useRouter();
     const { cases, updateCaseStatus } = useCases();
     const { t } = useLanguage();
+    const { colors } = useTheme();
     const date = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
     const [selectedCase, setSelectedCase] = useState<string | null>(null);
     const [showStatusMenu, setShowStatusMenu] = useState(false);

@@ -6,12 +6,14 @@ import { useState } from 'react';
 import { api } from '../services/api';
 import { useCases } from '../context/CaseContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function Filing() {
     const router = useRouter();
     const { addCase } = useCases();
     const { t } = useLanguage();
+    const { colors } = useTheme();
     const [loading, setLoading] = useState(false);
 
     // Form State
@@ -99,7 +101,7 @@ export default function Filing() {
     };
 
     return (
-        <SafeAreaView style={tw`flex-1 bg-slate-50`}>
+        <SafeAreaView style={[tw`flex-1`, { backgroundColor: colors.background }]}>
             <Stack.Screen options={{ headerShown: false }} />
 
             <ScrollView contentContainerStyle={tw`p-6 gap-6 pb-10`}>

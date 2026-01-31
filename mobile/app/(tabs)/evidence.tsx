@@ -4,11 +4,13 @@ import { Stack, useRouter } from 'expo-router';
 import tw from 'twrnc';
 import { useCases } from '../context/CaseContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Evidence() {
     const router = useRouter();
     const { cases } = useCases();
     const { t } = useLanguage();
+    const { colors } = useTheme();
 
     const activeCases = cases.filter(c => c.status !== 'Closed');
 
@@ -58,7 +60,7 @@ export default function Evidence() {
     );
 
     return (
-        <SafeAreaView style={tw`flex-1 bg-slate-50`}>
+        <SafeAreaView style={[tw`flex-1`, { backgroundColor: colors.background }]}>
             <Stack.Screen options={{ headerShown: false }} />
             <FlatList
                 data={activeCases}
