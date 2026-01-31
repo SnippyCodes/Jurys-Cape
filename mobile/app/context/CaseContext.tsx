@@ -34,16 +34,7 @@ interface CaseContextType {
 const CaseContext = createContext<CaseContextType | undefined>(undefined);
 
 export function CaseProvider({ children }: { children: ReactNode }) {
-    const [cases, setCases] = useState<Case[]>([
-        {
-            id: '402', title: 'State v. Sharma', type: 'Criminal Theft', priority: 'Critical', date: 'Today, 10:00 AM', status: 'Active', description: 'Sample case description.',
-            evidence: []
-        },
-        {
-            id: '399', title: 'Land Dispute: Patil Estimate', type: 'Civil Litigation', priority: 'Medium', date: 'Yesterday', status: 'Pending', description: 'Sample case description.',
-            evidence: []
-        },
-    ]);
+    const [cases, setCases] = useState<Case[]>([]);
 
     const addCase = (newCase: Case) => {
         setCases(prev => [{ ...newCase, evidence: [] }, ...prev]);
