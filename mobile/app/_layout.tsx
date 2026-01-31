@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { CaseProvider } from './context/CaseContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -63,12 +64,14 @@ export default function RootLayout() {
     }
 
     return (
-        <LanguageProvider>
-            <AuthProvider>
-                <CaseProvider>
-                    <RootLayoutNav />
-                </CaseProvider>
-            </AuthProvider>
-        </LanguageProvider>
+        <ThemeProvider>
+            <LanguageProvider>
+                <AuthProvider>
+                    <CaseProvider>
+                        <RootLayoutNav />
+                    </CaseProvider>
+                </AuthProvider>
+            </LanguageProvider>
+        </ThemeProvider>
     );
 }

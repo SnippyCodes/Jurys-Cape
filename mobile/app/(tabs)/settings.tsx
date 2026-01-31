@@ -5,13 +5,14 @@ import tw from 'twrnc';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import { Language } from '../i18n/translations';
 
 export default function Settings() {
     const router = useRouter();
     const { logout, devMode, user } = useAuth();
     const { language, setLanguage, t } = useLanguage();
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const { isDarkMode, toggleTheme, colors } = useTheme();
     const [notifications, setNotifications] = useState(true);
     const [showLanguagePicker, setShowLanguagePicker] = useState(false);
     const [showPrivacyModal, setShowPrivacyModal] = useState(false);
@@ -41,7 +42,7 @@ export default function Settings() {
     ];
 
     return (
-        <SafeAreaView style={tw`flex-1 bg-slate-50`}>
+        <SafeAreaView style={[tw`flex-1`, { backgroundColor: colors.background }]}>
             <Stack.Screen options={{ headerShown: false }} />
 
             <ScrollView contentContainerStyle={tw`p-6 gap-6 pb-10`}>
@@ -49,7 +50,7 @@ export default function Settings() {
                 {/* Header */}
                 <View style={tw`mt-2`}>
                     <Text style={tw`text-indigo-600 text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5`}>{t('preferences')}</Text>
-                    <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight`}>{t('settings')}</Text>
+                    <Text style={[tw`text-3xl font-extrabold tracking-tight`, { color: colors.text }]}>{t('settings')}</Text>
                 </View>
 
                 {/* Dev Mode Indicator */}
@@ -89,7 +90,7 @@ export default function Settings() {
                         </View>
                         <Switch
                             value={isDarkMode}
-                            onValueChange={setIsDarkMode}
+                            onValueChange={toggleTheme}
                             trackColor={{ false: '#e2e8f0', true: '#4f46e5' }}
                             thumbColor={'#ffffff'}
                         />
