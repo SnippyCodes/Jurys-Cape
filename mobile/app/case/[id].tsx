@@ -3,12 +3,14 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useCases } from '../context/CaseContext';
+import { useLanguage } from '../context/LanguageContext';
 import * as FileSystem from 'expo-file-system';
 import { useState } from 'react';
 
 export default function CaseDetails() {
     const { id } = useLocalSearchParams();
     const { getCaseById } = useCases();
+    const { t } = useLanguage();
     const router = useRouter();
     const [isDownloading, setIsDownloading] = useState(false);
 

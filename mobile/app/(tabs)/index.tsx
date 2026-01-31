@@ -73,7 +73,7 @@ export default function Dashboard() {
                     </View>
                     <View style={tw`flex-1`}>
                         <Text style={tw`text-indigo-100 font-bold text-xs uppercase tracking-widest mb-0.5`}>AI Legal Assistant</Text>
-                        <Text style={tw`text-white text-xl font-bold leading-tight tracking-tight`}>Start Consult</Text>
+                        <Text style={tw`text-white text-xl font-bold leading-tight tracking-tight`}>{t('startConsult')}</Text>
                     </View>
                     <View style={tw`w-10 h-10 rounded-full bg-white/10 items-center justify-center border border-white/20`}>
                         <Feather name="arrow-right" size={20} color="#fff" />
