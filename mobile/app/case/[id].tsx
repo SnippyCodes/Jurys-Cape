@@ -92,11 +92,9 @@ Date: ${new Date().toLocaleString()}
 
             // Create file
             const fileName = `Case_${caseData.id}_${caseData.title.replace(/\s+/g, '_')}.txt`;
-            const fileUri = FileSystem.documentDirectory + fileName;
+            const fileUri = FileSystem.cacheDirectory + fileName;
 
-            await FileSystem.writeAsStringAsync(fileUri, caseContent, {
-                encoding: FileSystem.EncodingType.UTF8,
-            });
+            await FileSystem.writeAsStringAsync(fileUri, caseContent);
 
             // Share the file
             const canShare = await Sharing.isAvailableAsync();
