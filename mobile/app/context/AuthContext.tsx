@@ -58,6 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const logout = () => {
         setUser(null);
         setIsAuthenticated(false);
+        setDevMode(false); // Also disable dev mode on logout
     };
 
     const toggleDevMode = () => {
