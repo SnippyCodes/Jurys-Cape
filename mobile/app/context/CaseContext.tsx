@@ -27,7 +27,8 @@ interface CaseContextType {
     cases: Case[];
     addCase: (newCase: Case) => void;
     getCaseById: (id: string) => Case | undefined;
-    addEvidenceToCase: (caseId: string, evidence: EvidenceItem) => void; // New method
+    addEvidenceToCase: (caseId: string, evidence: EvidenceItem) => void;
+    updateCaseStatus: (caseId: string, newStatus: string) => void; // New method
 }
 
 const CaseContext = createContext<CaseContextType | undefined>(undefined);
@@ -69,8 +70,14 @@ export function CaseProvider({ children }: { children: ReactNode }) {
         }));
     };
 
+    const updateCaseStatus = (caseId: string, newStatus: string) => {
+        setCases(prev => prev.map(c =>
+            c.id === caseId ? { ...c, status: newStatus } : c
+        ));
+    };
+
     return (
-        <CaseContext.Provider value={{ cases, addCase, getCaseById, addEvidenceToCase }}>
+        <CaseContext.Provider value={{ cases, addCase, getCaseById, addEvidenceToCase, updateCaseStatus }}>
             {children}
         </CaseContext.Provider>
     );

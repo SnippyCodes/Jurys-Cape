@@ -1,15 +1,25 @@
-import { View, Text, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, SafeAreaView, Alert, Modal } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { Feather, MaterialIcons } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useCases } from '../context/CaseContext';
+import { useState } from 'react';
 
 
 
 export default function Dashboard() {
     const router = useRouter();
-    const { cases } = useCases();
+    const { cases, updateCaseStatus } = useCases();
     const date = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+    const [selectedCase, setSelectedCase] = useState<string | null>(null);
+    const [showStatusMenu, setShowStatusMenu] = useState(false);
+
+    const handleStatusChange = (caseId: string, status: string) => {
+        updateCaseStatus(caseId, status);
+        setShowStatusMenu(false);
+        setSelectedCase(null);
+        Alert.alert('Status Updated', `Case marked as ${status}`);
+    };
 
     const renderHeader = () => (
         <View style={tw`mb-2`}>
@@ -87,6 +97,10 @@ export default function Dashboard() {
     const renderItem = ({ item }: { item: typeof cases[0] }) => (
         <TouchableOpacity
             onPress={() => router.push({ pathname: '/case/[id]', params: { id: item.id } })}
+            onLongPress={() => {
+                setSelectedCase(item.id);
+                setShowStatusMenu(true);
+            }}
             style={tw`bg-white p-5 rounded-[24px] border border-slate-100 shadow-lg shadow-indigo-100/30 mb-4 active:scale-[0.99] transition-all`}
         >
             {/* Card Header: Case ID & Priority */}
@@ -135,6 +149,73 @@ export default function Dashboard() {
                 showsVerticalScrollIndicator={false}
                 initialNumToRender={5}
             />
+
+            {/* Status Change Modal */}
+            <Modal
+                visible={showStatusMenu}
+                transparent
+                animationType="fade"
+                onRequestClose={() => setShowStatusMenu(false)}
+            >
+                <TouchableOpacity
+                    style={tw`flex-1 bg-black/50 justify-end`}
+                    activeOpacity={1}
+                    onPress={() => setShowStatusMenu(false)}
+                >
+                    <View style={tw`bg-white rounded-t-[32px] p-6 gap-3`}>
+                        <View style={tw`items-center mb-2`}>
+                            <View style={tw`w-12 h-1 bg-slate-200 rounded-full mb-4`} />
+                            <Text style={tw`text-slate-900 font-bold text-lg`}>Update Case Status</Text>
+                        </View>
+
+                        <TouchableOpacity
+                            onPress={() => selectedCase && handleStatusChange(selectedCase, 'Completed')}
+                            style={tw`bg-emerald-50 p-4 rounded-2xl flex-row items-center gap-3 border border-emerald-100`}
+                        >
+                            <View style={tw`w-10 h-10 rounded-full bg-emerald-500 items-center justify-center`}>
+                                <Feather name="check-circle" size={20} color="#fff" />
+                            </View>
+                            <View style={tw`flex-1`}>
+                                <Text style={tw`text-emerald-900 font-bold text-base`}>Mark as Completed</Text>
+                                <Text style={tw`text-emerald-600 text-xs font-medium`}>Case successfully closed</Text>
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => selectedCase && handleStatusChange(selectedCase, 'Dismissed')}
+                            style={tw`bg-slate-50 p-4 rounded-2xl flex-row items-center gap-3 border border-slate-200`}
+                        >
+                            <View style={tw`w-10 h-10 rounded-full bg-slate-500 items-center justify-center`}>
+                                <Feather name="x-circle" size={20} color="#fff" />
+                            </View>
+                            <View style={tw`flex-1`}>
+                                <Text style={tw`text-slate-900 font-bold text-base`}>Dismiss Case</Text>
+                                <Text style={tw`text-slate-600 text-xs font-medium`}>Case dismissed by court</Text>
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => selectedCase && handleStatusChange(selectedCase, 'Withdrawn')}
+                            style={tw`bg-amber-50 p-4 rounded-2xl flex-row items-center gap-3 border border-amber-100`}
+                        >
+                            <View style={tw`w-10 h-10 rounded-full bg-amber-500 items-center justify-center`}>
+                                <Feather name="arrow-left-circle" size={20} color="#fff" />
+                            </View>
+                            <View style={tw`flex-1`}>
+                                <Text style={tw`text-amber-900 font-bold text-base`}>Withdraw Case</Text>
+                                <Text style={tw`text-amber-600 text-xs font-medium`}>Case taken back</Text>
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => setShowStatusMenu(false)}
+                            style={tw`bg-white p-4 rounded-2xl border-2 border-slate-200 mt-2`}
+                        >
+                            <Text style={tw`text-slate-600 font-bold text-center`}>Cancel</Text>
+                        </TouchableOpacity>
+                    </View>
+                </TouchableOpacity>
+            </Modal>
         </SafeAreaView>
     );
 }

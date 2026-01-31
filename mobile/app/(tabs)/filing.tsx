@@ -27,15 +27,17 @@ export default function Filing() {
     const [showTimePicker, setShowTimePicker] = useState(false);
 
     const onChangeDate = (event: any, selectedDate?: Date) => {
-        const currentDate = selectedDate || date;
-        setShowDatePicker(Platform.OS === 'ios');
-        setDate(currentDate);
+        setShowDatePicker(false); // Always dismiss on Android
+        if (event.type === 'set' && selectedDate) {
+            setDate(selectedDate);
+        }
     };
 
     const onChangeTime = (event: any, selectedTime?: Date) => {
-        const currentTime = selectedTime || time;
-        setShowTimePicker(Platform.OS === 'ios');
-        setTime(currentTime);
+        setShowTimePicker(false); // Always dismiss on Android
+        if (event.type === 'set' && selectedTime) {
+            setTime(selectedTime);
+        }
     };
 
     const resetForm = () => {
