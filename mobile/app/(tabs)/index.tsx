@@ -153,8 +153,8 @@ export default function Dashboard() {
                         <Text style={[tw`text-xs font-bold`, { color: colors.textSecondary }]}>{item.date}</Text>
                     </View>
                     <View style={tw`flex-row items-center gap-1.5`}>
-                        <Feather name="map-pin" size={14} color={colors.textTertiary} />
-                        <Text style={[tw`text-xs font-bold`, { color: colors.textSecondary }]}>{item.location}</Text>
+                        <Feather name="folder" size={14} color={colors.textTertiary} />
+                        <Text style={[tw`text-xs font-bold`, { color: colors.textSecondary }]}>{item.type}</Text>
                     </View>
                 </View>
 
