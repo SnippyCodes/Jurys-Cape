@@ -1,12 +1,33 @@
-import { View, Text, Switch, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, Switch, TouchableOpacity, ScrollView, SafeAreaView, Alert } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import tw from 'twrnc';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 export default function Settings() {
+    const router = useRouter();
+    const { logout, devMode, user } = useAuth();
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [notifications, setNotifications] = useState(true);
+
+    const handleLogout = () => {
+        Alert.alert(
+            'Logout',
+            'Are you sure you want to logout?',
+            [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                    text: 'Logout',
+                    style: 'destructive',
+                    onPress: () => {
+                        logout();
+                        router.replace('/login');
+                    }
+                }
+            ]
+        );
+    };
 
     return (
         <SafeAreaView style={tw`flex-1 bg-slate-50`}>
@@ -20,14 +41,25 @@ export default function Settings() {
                     <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight`}>Settings</Text>
                 </View>
 
+                {/* Dev Mode Indicator */}
+                {devMode && (
+                    <View style={tw`bg-amber-50 p-4 rounded-2xl border border-amber-200 flex-row items-center gap-3`}>
+                        <Feather name="zap" size={20} color="#f59e0b" />
+                        <View style={tw`flex-1`}>
+                            <Text style={tw`text-amber-900 font-bold`}>Developer Mode Active</Text>
+                            <Text style={tw`text-amber-600 text-xs`}>Authentication bypassed</Text>
+                        </View>
+                    </View>
+                )}
+
                 {/* Profile Card - Medium */}
                 <View style={tw`bg-white p-5 rounded-[24px] border border-indigo-50 shadow-md shadow-indigo-100/50 flex-row items-center gap-4`}>
                     <View style={tw`w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full items-center justify-center shadow-md shadow-indigo-300 border-4 border-indigo-50`}>
-                        <Text style={tw`text-white font-bold text-xl`}>K</Text>
+                        <Text style={tw`text-white font-bold text-xl`}>{user?.name.charAt(0).toUpperCase() || 'K'}</Text>
                     </View>
                     <View>
-                        <Text style={tw`text-slate-900 text-xl font-bold tracking-tight`}>Krushna</Text>
-                        <Text style={tw`text-slate-500 text-xs font-bold uppercase tracking-wider mb-2`}>ID: 8829-AZ</Text>
+                        <Text style={tw`text-slate-900 text-xl font-bold tracking-tight`}>{user?.name || 'Krushna'}</Text>
+                        <Text style={tw`text-slate-500 text-xs font-bold uppercase tracking-wider mb-2`}>ID: {user?.id || '8829-AZ'}</Text>
                         <View style={tw`bg-indigo-50 self-start px-2.5 py-1 rounded-full border border-indigo-100`}>
                             <Text style={tw`text-indigo-700 text-[10px] font-bold uppercase`}>Senior Inspector</Text>
                         </View>
@@ -109,7 +141,10 @@ export default function Settings() {
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity style={tw`mt-4 bg-red-50 border border-red-100 p-5 rounded-3xl flex-row items-center justify-center gap-3 active:bg-red-100`}>
+                <TouchableOpacity
+                    onPress={handleLogout}
+                    style={tw`mt-4 bg-red-50 border border-red-100 p-5 rounded-3xl flex-row items-center justify-center gap-3 active:bg-red-100`}
+                >
                     <Feather name="log-out" size={20} color="#ef4444" />
                     <Text style={tw`text-red-600 font-bold text-base`}>Log Out</Text>
                 </TouchableOpacity>
