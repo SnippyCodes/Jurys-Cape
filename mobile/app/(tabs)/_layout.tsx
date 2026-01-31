@@ -2,8 +2,11 @@ import { Tabs } from 'expo-router';
 import { MaterialIcons, Feather } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { View, Platform } from 'react-native';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function TabLayout() {
+    const { t } = useLanguage();
+
     return (
         <Tabs
             screenOptions={{
@@ -28,28 +31,28 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: 'Dashboard',
+                    title: t('dashboard'),
                     tabBarIcon: ({ color }) => <MaterialIcons name="dashboard" size={24} color={color} />,
                 }}
             />
             <Tabs.Screen
                 name="filing"
                 options={{
-                    title: 'Filing',
+                    title: t('filing'),
                     tabBarIcon: ({ color }) => <Feather name="file-text" size={24} color={color} />,
                 }}
             />
             <Tabs.Screen
                 name="evidence"
                 options={{
-                    title: 'Evidence',
+                    title: t('evidence'),
                     tabBarIcon: ({ color }) => <Feather name="camera" size={24} color={color} />,
                 }}
             />
             <Tabs.Screen
                 name="settings"
                 options={{
-                    title: 'Settings',
+                    title: t('settings'),
                     tabBarIcon: ({ color }) => <Feather name="settings" size={24} color={color} />,
                 }}
             />

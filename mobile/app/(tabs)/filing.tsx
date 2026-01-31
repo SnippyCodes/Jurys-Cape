@@ -11,6 +11,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 export default function Filing() {
     const router = useRouter();
     const { addCase } = useCases();
+    const { t } = useLanguage();
     const [loading, setLoading] = useState(false);
 
     // Form State
@@ -106,7 +107,7 @@ export default function Filing() {
                 {/* Integrated Header - Medium Size */}
                 <View style={tw`mt-2 mb-2`}>
                     <Text style={tw`text-indigo-600 text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5`}>Incident Reporting</Text>
-                    <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight`}>New Case</Text>
+                    <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight`}>{t('fileCase')}</Text>
                 </View>
 
                 {/* Form Content - Medium Size */}
@@ -114,11 +115,11 @@ export default function Filing() {
 
                     {/* Case Title */}
                     <View>
-                        <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>Case Title</Text>
+                        <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>{t('caseTitle')}</Text>
                         <View style={tw`flex-row items-center bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4 focus:border-indigo-500`}>
                             <Feather name="file-text" size={20} color="#4f46e5" style={tw`mr-3`} />
                             <TextInput
-                                placeholder="e.g. State vs. Information"
+                                placeholder={t('enterCaseTitle')}
                                 placeholderTextColor="#94a3b8"
                                 style={tw`flex-1 text-slate-900 font-bold text-base`}
                                 value={title}
@@ -130,11 +131,11 @@ export default function Filing() {
                     {/* Parties - Side by Side (Fixed Layout) */}
                     <View style={tw`flex-row gap-4`}>
                         <View style={tw`flex-1`}>
-                            <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>Filing Party</Text>
+                            <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>{t('complainant')}</Text>
                             <View style={tw`flex-row items-center bg-indigo-50/50 rounded-2xl border border-indigo-100 px-3 py-4`}>
                                 <Feather name="user" size={18} color="#4338ca" style={tw`mr-2`} />
                                 <TextInput
-                                    placeholder="Complainant"
+                                    placeholder={t('enterComplainant')}
                                     placeholderTextColor="#94a3b8"
                                     style={tw`flex-1 text-slate-900 font-medium text-sm`}
                                     value={complainant}
@@ -143,11 +144,11 @@ export default function Filing() {
                             </View>
                         </View>
                         <View style={tw`flex-1`}>
-                            <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>Accused Party</Text>
+                            <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>{t('accused')}</Text>
                             <View style={tw`flex-row items-center bg-rose-50/50 rounded-2xl border border-rose-100 px-3 py-4`}>
                                 <Feather name="user-x" size={18} color="#e11d48" style={tw`mr-2`} />
                                 <TextInput
-                                    placeholder="Suspect"
+                                    placeholder={t('enterAccused')}
                                     placeholderTextColor="#94a3b8"
                                     style={tw`flex-1 text-slate-900 font-medium text-sm`}
                                     value={suspect}
