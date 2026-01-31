@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
 :root {
   --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', serif;
 
-  /* Dark Theme (Default) - Medical Ultra-Modern */
+  /* Dark Theme (Default) - Justice Premium */
   --bg-app: #0f172a;
   /* Slate 900 */
-  --bg-panel: rgba(15, 23, 42, 0.8);
-  /* Slate 900 @ 80% */
+  --bg-panel: rgba(15, 23, 42, 0.75);
+  /* Slate 900 @ 75% */
   --bg-card: rgba(30, 41, 59, 0.6);
   /* Slate 800 @ 60% */
 
@@ -15,6 +18,8 @@
   /* Slate 50 */
   --text-muted: #94a3b8;
   /* Slate 400 */
+  --text-accent: #fcd34d;
+  /* Amber 300 - Gold Accent */
 
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-highlight: rgba(255, 255, 255, 0.05);
@@ -37,6 +42,8 @@
   /* Slate 900 */
   --text-muted: #64748b;
   /* Slate 500 */
+  --text-accent: #b45309;
+  /* Amber 700 */
 
   --glass-border: rgba(0, 0, 0, 0.1);
   --glass-highlight: rgba(0, 0, 0, 0.05);
@@ -51,7 +58,35 @@ body {
   font-family: var(--font-sans);
   background-color: var(--bg-app);
   color: var(--text-main);
-  @apply antialiased selection:bg-blue-500/30 selection:text-blue-200 overflow-x-hidden;
+  @apply antialiased selection:bg-amber-500/30 selection:text-amber-200 overflow-x-hidden relative;
+}
+
+/* Aurora Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08), transparent 25%);
+  z-index: -1;
+  pointer-events: none;
+  animation: bg-pulse 10s ease-in-out infinite alternate;
+}
+
+@keyframes bg-pulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }
 
 /* Custom Utilities for Glassmorphism */
@@ -70,10 +105,15 @@ body {
 
   .glass-card:hover {
     border-color: var(--glass-highlight);
+    box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.2);
   }
 
   .text-glow {
-    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  }
+
+  .text-glow-gold {
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
   }
 
   .border-glow {
@@ -100,10 +140,10 @@ body {
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-slate-950;
+    background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-slate-700/50 rounded-full hover:bg-slate-600;
+    @apply bg-slate-700/30 rounded-full hover:bg-slate-600/50 transition-colors;
   }
 }
