@@ -13,7 +13,7 @@ export default function Filing() {
     const router = useRouter();
     const { addCase } = useCases();
     const { t } = useLanguage();
-    const { colors } = useTheme();
+    const { colors, isDarkMode } = useTheme();
     const [loading, setLoading] = useState(false);
 
     // Form State
@@ -109,21 +109,21 @@ export default function Filing() {
                 {/* Integrated Header - Medium Size */}
                 <View style={tw`mt-2 mb-2`}>
                     <Text style={tw`text-indigo-600 text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5`}>Incident Reporting</Text>
-                    <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight`}>{t('fileCase')}</Text>
+                    <Text style={[tw`text-3xl font-extrabold tracking-tight`, { color: colors.text }]}>{t('fileCase')}</Text>
                 </View>
 
                 {/* Form Content - Medium Size */}
-                <View style={tw`bg-white p-6 rounded-[24px] border border-indigo-50 shadow-md shadow-indigo-100/50 gap-6`}>
+                <View style={[tw`p-6 rounded-[24px] border shadow-md gap-6`, { backgroundColor: colors.cardBg, borderColor: colors.border }]}>
 
                     {/* Case Title */}
                     <View>
-                        <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>{t('caseTitle')}</Text>
-                        <View style={tw`flex-row items-center bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4 focus:border-indigo-500`}>
+                        <Text style={[tw`font-bold mb-2 text-xs uppercase tracking-wide`, { color: colors.textSecondary }]}>{t('caseTitle')}</Text>
+                        <View style={[tw`flex-row items-center rounded-2xl border px-4 py-4`, { backgroundColor: colors.inputBg, borderColor: colors.borderLight }]}>
                             <Feather name="file-text" size={20} color="#4f46e5" style={tw`mr-3`} />
                             <TextInput
                                 placeholder={t('enterCaseTitle')}
-                                placeholderTextColor="#94a3b8"
-                                style={tw`flex-1 text-slate-900 font-bold text-base`}
+                                placeholderTextColor={colors.textTertiary}
+                                style={[tw`flex-1 font-bold text-base`, { color: colors.text }]}
                                 value={title}
                                 onChangeText={setTitle}
                             />
@@ -133,26 +133,26 @@ export default function Filing() {
                     {/* Parties - Side by Side (Fixed Layout) */}
                     <View style={tw`flex-row gap-4`}>
                         <View style={tw`flex-1`}>
-                            <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>{t('complainant')}</Text>
-                            <View style={tw`flex-row items-center bg-indigo-50/50 rounded-2xl border border-indigo-100 px-3 py-4`}>
+                            <Text style={[tw`font-bold mb-2 text-xs uppercase tracking-wide`, { color: colors.textSecondary }]}>{t('complainant')}</Text>
+                            <View style={[tw`flex-row items-center rounded-2xl border px-3 py-4`, { backgroundColor: isDarkMode ? '#1e1b4b' : '#eef2ff', borderColor: isDarkMode ? '#312e81' : '#c7d2fe' }]}>
                                 <Feather name="user" size={18} color="#4338ca" style={tw`mr-2`} />
                                 <TextInput
                                     placeholder={t('enterComplainant')}
-                                    placeholderTextColor="#94a3b8"
-                                    style={tw`flex-1 text-slate-900 font-medium text-sm`}
+                                    placeholderTextColor={colors.textTertiary}
+                                    style={[tw`flex-1 font-medium text-sm`, { color: colors.text }]}
                                     value={complainant}
                                     onChangeText={setComplainant}
                                 />
                             </View>
                         </View>
                         <View style={tw`flex-1`}>
-                            <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>{t('accused')}</Text>
-                            <View style={tw`flex-row items-center bg-rose-50/50 rounded-2xl border border-rose-100 px-3 py-4`}>
+                            <Text style={[tw`font-bold mb-2 text-xs uppercase tracking-wide`, { color: colors.textSecondary }]}>{t('accused')}</Text>
+                            <View style={[tw`flex-row items-center rounded-2xl border px-3 py-4`, { backgroundColor: isDarkMode ? '#7f1d1d' : '#fff1f2', borderColor: isDarkMode ? '#991b1b' : '#fecaca' }]}>
                                 <Feather name="user-x" size={18} color="#e11d48" style={tw`mr-2`} />
                                 <TextInput
                                     placeholder={t('enterAccused')}
-                                    placeholderTextColor="#94a3b8"
-                                    style={tw`flex-1 text-slate-900 font-medium text-sm`}
+                                    placeholderTextColor={colors.textTertiary}
+                                    style={[tw`flex-1 font-medium text-sm`, { color: colors.text }]}
                                     value={suspect}
                                     onChangeText={setSuspect}
                                 />
@@ -162,13 +162,13 @@ export default function Filing() {
 
                     {/* Incident Type */}
                     <View>
-                        <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>Incident Type</Text>
-                        <View style={tw`flex-row items-center bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4`}>
+                        <Text style={[tw`font-bold mb-2 text-xs uppercase tracking-wide`, { color: colors.textSecondary }]}>Incident Type</Text>
+                        <View style={[tw`flex-row items-center rounded-2xl border px-4 py-4`, { backgroundColor: colors.inputBg, borderColor: colors.borderLight }]}>
                             <Feather name="alert-triangle" size={20} color="#6366f1" style={tw`mr-3`} />
                             <TextInput
                                 placeholder="e.g. Theft, Assault, Cyber Crime"
-                                placeholderTextColor="#94a3b8"
-                                style={tw`flex-1 text-slate-900 font-medium text-base`}
+                                placeholderTextColor={colors.textTertiary}
+                                style={[tw`flex-1 font-medium text-base`, { color: colors.text }]}
                                 value={incidentType}
                                 onChangeText={setIncidentType}
                             />
@@ -177,13 +177,13 @@ export default function Filing() {
 
                     {/* Location */}
                     <View>
-                        <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>Location</Text>
-                        <View style={tw`flex-row items-center bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4`}>
+                        <Text style={[tw`font-bold mb-2 text-xs uppercase tracking-wide`, { color: colors.textSecondary }]}>Location</Text>
+                        <View style={[tw`flex-row items-center rounded-2xl border px-4 py-4`, { backgroundColor: colors.inputBg, borderColor: colors.borderLight }]}>
                             <Feather name="map-pin" size={20} color="#8b5cf6" style={tw`mr-3`} />
                             <TextInput
                                 placeholder="Enter location address"
-                                placeholderTextColor="#94a3b8"
-                                style={tw`flex-1 text-slate-900 font-medium text-base`}
+                                placeholderTextColor={colors.textTertiary}
+                                style={[tw`flex-1 font-medium text-base`, { color: colors.text }]}
                                 value={location}
                                 onChangeText={setLocation}
                             />
@@ -193,13 +193,13 @@ export default function Filing() {
                     {/* Date & Time Picker */}
                     <View style={tw`flex-row gap-4`}>
                         <View style={tw`flex-1`}>
-                            <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>Date</Text>
+                            <Text style={[tw`font-bold mb-2 text-xs uppercase tracking-wide`, { color: colors.textSecondary }]}>Date</Text>
                             <TouchableOpacity
                                 onPress={() => setShowDatePicker(true)}
-                                style={tw`flex-row items-center bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4`}
+                                style={[tw`flex-row items-center rounded-2xl border px-4 py-4`, { backgroundColor: colors.inputBg, borderColor: colors.borderLight }]}
                             >
                                 <Feather name="calendar" size={18} color="#06b6d4" style={tw`mr-3`} />
-                                <Text style={tw`flex-1 text-slate-900 font-medium text-base`}>
+                                <Text style={[tw`flex-1 font-medium text-base`, { color: colors.text }]}>
                                     {date.toLocaleDateString()}
                                 </Text>
                             </TouchableOpacity>
@@ -213,13 +213,13 @@ export default function Filing() {
                             )}
                         </View>
                         <View style={tw`flex-1`}>
-                            <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>Time</Text>
+                            <Text style={[tw`font-bold mb-2 text-xs uppercase tracking-wide`, { color: colors.textSecondary }]}>Time</Text>
                             <TouchableOpacity
                                 onPress={() => setShowTimePicker(true)}
-                                style={tw`flex-row items-center bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4`}
+                                style={[tw`flex-row items-center rounded-2xl border px-4 py-4`, { backgroundColor: colors.inputBg, borderColor: colors.borderLight }]}
                             >
                                 <Feather name="clock" size={18} color="#06b6d4" style={tw`mr-3`} />
-                                <Text style={tw`flex-1 text-slate-900 font-medium text-base`}>
+                                <Text style={[tw`flex-1 font-medium text-base`, { color: colors.text }]}>
                                     {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                 </Text>
                             </TouchableOpacity>
@@ -236,14 +236,14 @@ export default function Filing() {
 
                     {/* Description */}
                     <View>
-                        <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>Description</Text>
-                        <View style={tw`bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4`}>
+                        <Text style={[tw`font-bold mb-2 text-xs uppercase tracking-wide`, { color: colors.textSecondary }]}>Description</Text>
+                        <View style={[tw`rounded-2xl border px-4 py-4`, { backgroundColor: colors.inputBg, borderColor: colors.borderLight }]}>
                             <TextInput
                                 placeholder="Describe the incident details..."
-                                placeholderTextColor="#94a3b8"
+                                placeholderTextColor={colors.textTertiary}
                                 multiline
                                 numberOfLines={4}
-                                style={tw`text-slate-900 font-medium h-24 text-base p-0`}
+                                style={[tw`font-medium h-24 text-base p-0`, { color: colors.text }]}
                                 textAlignVertical="top"
                                 value={description}
                                 onChangeText={setDescription}
