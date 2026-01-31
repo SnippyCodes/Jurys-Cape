@@ -68,14 +68,14 @@ ${caseData.description}
 ${'='.repeat(50)}
 PARTIES INVOLVED
 ${'='.repeat(50)}
-Complainant: ${caseData.complainant || 'N/A'}
-Accused: ${caseData.accused || 'N/A'}
+Complainant: ${(caseData as any).complainant || 'N/A'}
+Accused: ${(caseData as any).accused || 'N/A'}
 
 ${'='.repeat(50)}
 EVIDENCE (${caseData.evidence?.length || 0} items)
 ${'='.repeat(50)}
 ${caseData.evidence?.map((ev, idx) => `
-${idx + 1}. ${ev.name}
+${idx + 1}. ${ev.uri || ev.id}
    Type: ${ev.type}
    Analysis: ${ev.analysis || 'Pending'}
 `).join('') || 'No evidence uploaded'}
