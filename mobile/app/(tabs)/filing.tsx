@@ -1,10 +1,11 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView, ActivityIndicator, Alert, Platform } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useState } from 'react';
 import { api } from '../services/api';
 import { useCases } from '../context/CaseContext';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function Filing() {
     const router = useRouter();
@@ -17,9 +18,25 @@ export default function Filing() {
     const [suspect, setSuspect] = useState('');
     const [incidentType, setIncidentType] = useState('');
     const [location, setLocation] = useState('');
-    const [date, setDate] = useState('');
-    const [time, setTime] = useState('');
     const [description, setDescription] = useState('');
+
+    // Date/Time State
+    const [date, setDate] = useState(new Date());
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [time, setTime] = useState(new Date());
+    const [showTimePicker, setShowTimePicker] = useState(false);
+
+    const onChangeDate = (event: any, selectedDate?: Date) => {
+        const currentDate = selectedDate || date;
+        setShowDatePicker(Platform.OS === 'ios');
+        setDate(currentDate);
+    };
+
+    const onChangeTime = (event: any, selectedTime?: Date) => {
+        const currentTime = selectedTime || time;
+        setShowTimePicker(Platform.OS === 'ios');
+        setTime(currentTime);
+    };
 
     const handleFileReport = async () => {
         if (!title || !description) {
@@ -39,7 +56,7 @@ export default function Filing() {
                 title: title,
                 type: incidentType || 'General',
                 priority: 'High', // Defaulting to High for new reports
-                date: 'Today',
+                date: date.toLocaleDateString(),
                 status: 'Active',
                 description: description,
                 summary: analysis.summary,
@@ -152,33 +169,47 @@ export default function Filing() {
                         </View>
                     </View>
 
-                    {/* Date & Time */}
+                    {/* Date & Time Picker */}
                     <View style={tw`flex-row gap-4`}>
                         <View style={tw`flex-1`}>
                             <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>Date</Text>
-                            <View style={tw`flex-row items-center bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4`}>
+                            <TouchableOpacity
+                                onPress={() => setShowDatePicker(true)}
+                                style={tw`flex-row items-center bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4`}
+                            >
                                 <Feather name="calendar" size={18} color="#06b6d4" style={tw`mr-3`} />
-                                <TextInput
-                                    placeholder="DD/MM/YY"
-                                    placeholderTextColor="#94a3b8"
-                                    style={tw`flex-1 text-slate-900 font-medium text-base`}
+                                <Text style={tw`flex-1 text-slate-900 font-medium text-base`}>
+                                    {date.toLocaleDateString()}
+                                </Text>
+                            </TouchableOpacity>
+                            {showDatePicker && (
+                                <DateTimePicker
                                     value={date}
-                                    onChangeText={setDate}
+                                    mode="date"
+                                    display="default"
+                                    onChange={onChangeDate}
                                 />
-                            </View>
+                            )}
                         </View>
                         <View style={tw`flex-1`}>
                             <Text style={tw`text-slate-700 font-bold mb-2 text-xs uppercase tracking-wide`}>Time</Text>
-                            <View style={tw`flex-row items-center bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4`}>
+                            <TouchableOpacity
+                                onPress={() => setShowTimePicker(true)}
+                                style={tw`flex-row items-center bg-slate-50/50 rounded-2xl border border-slate-200 px-4 py-4`}
+                            >
                                 <Feather name="clock" size={18} color="#06b6d4" style={tw`mr-3`} />
-                                <TextInput
-                                    placeholder="HH:MM"
-                                    placeholderTextColor="#94a3b8"
-                                    style={tw`flex-1 text-slate-900 font-medium text-base`}
+                                <Text style={tw`flex-1 text-slate-900 font-medium text-base`}>
+                                    {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </Text>
+                            </TouchableOpacity>
+                            {showTimePicker && (
+                                <DateTimePicker
                                     value={time}
-                                    onChangeText={setTime}
+                                    mode="time"
+                                    display="default"
+                                    onChange={onChangeTime}
                                 />
-                            </View>
+                            )}
                         </View>
                     </View>
 
