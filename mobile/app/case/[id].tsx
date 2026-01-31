@@ -31,7 +31,7 @@ export default function CaseDetails() {
                 </TouchableOpacity>
                 <View style={tw`flex-1`}>
                     <Text style={tw`text-slate-400 text-[10px] font-bold uppercase tracking-wider`}>Case #{caseData.id}</Text>
-                    <Text style={tw`text-slate-900 text-xl font-bold tracking-tight numberOfLines={1}`}>{caseData.title}</Text>
+                    <Text numberOfLines={1} style={tw`text-slate-900 text-xl font-bold tracking-tight`}>{caseData.title}</Text>
                 </View>
                 <View style={tw`bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100`}>
                     <Text style={tw`text-indigo-700 text-xs font-bold uppercase`}>{caseData.status}</Text>

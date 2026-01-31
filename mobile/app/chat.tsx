@@ -3,7 +3,7 @@ import { Feather } from '@expo/vector-icons';
 import { Stack, useRouter } from 'expo-router';
 import tw from 'twrnc';
 import { useState, useRef, useEffect } from 'react';
-import { api } from '../services/api';
+import { api } from './services/api';
 
 const quickActions = [
     { label: 'Draft FIR', icon: 'file-text' },
