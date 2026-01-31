@@ -54,5 +54,47 @@ export const api = {
             console.error('Analyze API Error:', error);
             throw error;
         }
+    },
+
+    async analyzeMedia(fileUri: string, fileType: 'image' | 'video' | 'doc', prompt: string = 'Describe this evidence in legal context') {
+        try {
+            console.log(`Uploading ${fileType} from:`, fileUri);
+
+            const formData = new FormData();
+
+            // Infer filename and mime type
+            const filename = fileUri.split('/').pop() || `upload.${fileType === 'doc' ? 'pdf' : 'jpg'}`;
+            const match = /\.(\w+)$/.exec(filename);
+            const type = match ? `${fileType}/${match[1]}` : `${fileType}/jpeg`;
+
+            formData.append('file', {
+                uri: fileUri,
+                name: filename,
+                type: type === 'doc/pdf' ? 'application/pdf' : type // Fix for PDFs
+            } as any);
+
+            formData.append('prompt', prompt);
+
+            const endpoint = `${API_BASE_URL}/gemini/analyze/${fileType}`;
+            console.log('Sending to:', endpoint);
+
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: formData,
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Media Analyze API Error: ${response.status} - ${errorText}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Media Analyze API Error:', error);
+            throw error;
+        }
     }
 };
