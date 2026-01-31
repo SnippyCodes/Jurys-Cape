@@ -3,24 +3,26 @@ import { MaterialIcons, Feather } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { View, Platform } from 'react-native';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function TabLayout() {
     const { t } = useLanguage();
+    const { colors, isDarkMode } = useTheme();
 
     return (
         <Tabs
             screenOptions={{
                 headerShown: false,
                 tabBarStyle: {
-                    backgroundColor: '#ffffff',
+                    backgroundColor: colors.surface,
                     borderTopWidth: 1,
-                    borderTopColor: '#f1f5f9',
+                    borderTopColor: colors.border,
                     height: 85,
                     paddingBottom: 25,
                     paddingTop: 10,
                 },
                 tabBarActiveTintColor: '#4f46e5',
-                tabBarInactiveTintColor: '#94a3b8',
+                tabBarInactiveTintColor: colors.textTertiary,
                 tabBarLabelStyle: {
                     fontSize: 10,
                     fontWeight: 'bold',
