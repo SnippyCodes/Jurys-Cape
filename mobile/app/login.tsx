@@ -47,7 +47,7 @@ export default function Login() {
 
                     {/* Logo/Title Section */}
                     <View style={tw`items-center mb-8`}>
-                        <View style={tw`w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 items-center justify-center mb-4 shadow-lg shadow-indigo-500/50`}>
+                        <View style={tw`w-20 h-20 rounded-full bg-indigo-600 items-center justify-center mb-4 shadow-lg shadow-indigo-500/50`}>
                             <Feather name="shield" size={40} color="#fff" />
                         </View>
                         <Text style={tw`text-slate-900 text-4xl font-extrabold tracking-tight mb-2`}>Nav Sahayak</Text>
