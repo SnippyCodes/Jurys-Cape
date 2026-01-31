@@ -38,6 +38,17 @@ export default function Filing() {
         setTime(currentTime);
     };
 
+    const resetForm = () => {
+        setTitle('');
+        setComplainant('');
+        setSuspect('');
+        setIncidentType('');
+        setLocation('');
+        setDescription('');
+        setDate(new Date());
+        setTime(new Date());
+    };
+
     const handleFileReport = async () => {
         if (!title || !description) {
             Alert.alert('Missing Fields', 'Please provide at least a Case Title and Description.');
@@ -66,8 +77,12 @@ export default function Filing() {
             // 3. Add to Global State
             addCase(newCase);
 
-            // 4. Navigate to Dashboard
+            // 4. Reset Form
+            resetForm();
+
+            // 5. Show Success & Navigate
             Alert.alert('Success', 'Case filed and AI report generated.', [
+                { text: 'OK' },
                 { text: 'View Dashboard', onPress: () => router.push('/(tabs)') }
             ]);
 
