@@ -2,8 +2,8 @@ import { Alert } from 'react-native';
 
 // REPLACE WITH YOUR COMPUTER'S LOCAL IP ADDRESS
 // If using Android Emulator: 'http://10.0.2.2:8000/api/v1'
-// If using Physical Device: 'http://192.168.1.X:8000/api/v1'
-export const API_BASE_URL = 'http://192.168.1.5:8000/api/v1';
+// If using Physical Device: 'http://192.168.7.1:8000/api/v1' (Detected)
+export const API_BASE_URL = 'http://192.168.7.1:8000/api/v1';
 
 export const api = {
     async chatWithAI(message: string) {
