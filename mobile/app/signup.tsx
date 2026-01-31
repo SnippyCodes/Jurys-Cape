@@ -4,10 +4,12 @@ import { Feather } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useState } from 'react';
 import { useAuth } from './context/AuthContext';
+import { useLanguage } from './context/LanguageContext';
 
 export default function Signup() {
     const router = useRouter();
     const { signup } = useAuth();
+    const { t } = useLanguage();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');

@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useState } from 'react';
 import { useAuth } from './context/AuthContext';
+import { useLanguage } from './context/LanguageContext';
 
 export default function Login() {
     const router = useRouter();

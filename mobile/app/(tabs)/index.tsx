@@ -3,6 +3,7 @@ import { Stack, useRouter } from 'expo-router';
 import { Feather, MaterialIcons } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useCases } from '../context/CaseContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useState } from 'react';
 
 
@@ -10,6 +11,7 @@ import { useState } from 'react';
 export default function Dashboard() {
     const router = useRouter();
     const { cases, updateCaseStatus } = useCases();
+    const { t } = useLanguage();
     const date = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
     const [selectedCase, setSelectedCase] = useState<string | null>(null);
     const [showStatusMenu, setShowStatusMenu] = useState(false);
@@ -35,7 +37,7 @@ export default function Dashboard() {
                         <Text style={tw`text-indigo-600 text-[10px] font-bold`}>{date}</Text>
                     </View>
                 </View>
-                <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight`}>Nav Sahayak</Text>
+                <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight`}>{t('navSahayak')}</Text>
             </View>
 
             {/* Stats Cards - Medium Tint */}
@@ -46,7 +48,7 @@ export default function Dashboard() {
                     </View>
                     <View>
                         <Text style={tw`text-slate-900 text-3xl font-bold mb-0.5 tracking-tight`}>{activeCases}</Text>
-                        <Text style={tw`text-slate-500 text-xs font-bold uppercase tracking-wide`}>Active Cases</Text>
+                        <Text style={tw`text-slate-500 text-xs font-bold uppercase tracking-wide`}>{t('activeCases')}</Text>
                     </View>
                 </View>
                 <View style={tw`flex-1 bg-amber-50/50 p-5 rounded-3xl border border-amber-100 shadow-sm justify-between h-36`}>
@@ -55,7 +57,7 @@ export default function Dashboard() {
                     </View>
                     <View>
                         <Text style={tw`text-slate-900 text-3xl font-bold mb-0.5 tracking-tight`}>{pendingCases}</Text>
-                        <Text style={tw`text-slate-500 text-xs font-bold uppercase tracking-wide`}>Pending Action</Text>
+                        <Text style={tw`text-slate-500 text-xs font-bold uppercase tracking-wide`}>{t('pendingAction')}</Text>
                     </View>
                 </View>
             </View>
