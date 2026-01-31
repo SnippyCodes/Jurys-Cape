@@ -50,10 +50,13 @@ export default function Signup() {
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={tw`flex-1`}
             >
-                <ScrollView contentContainerStyle={tw`p-6 pb-10`}>
+                <ScrollView
+                    contentContainerStyle={tw`flex-grow p-6 pb-10`}
+                    keyboardShouldPersistTaps="handled"
+                >
 
                     {/* Header */}
-                    <View style={tw`mt-8 mb-8`}>
+                    <View style={tw`mt-4 mb-6`}>
                         <TouchableOpacity onPress={() => router.back()} style={tw`w-10 h-10 rounded-full bg-white items-center justify-center mb-6 shadow-sm`}>
                             <Feather name="arrow-left" size={20} color="#64748b" />
                         </TouchableOpacity>

@@ -12,20 +12,6 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [showDevToggle, setShowDevToggle] = useState(false);
-    const [logoTapCount, setLogoTapCount] = useState(0);
-
-    const handleLogoTap = () => {
-        const newCount = logoTapCount + 1;
-        setLogoTapCount(newCount);
-
-        if (newCount >= 3) {
-            setShowDevToggle(true);
-            setTimeout(() => setLogoTapCount(0), 3000);
-        } else {
-            setTimeout(() => setLogoTapCount(0), 1000);
-        }
-    };
 
     const handleLogin = async () => {
         if (!email || !password) {
@@ -54,23 +40,22 @@ export default function Login() {
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={tw`flex-1`}
             >
-                <ScrollView contentContainerStyle={tw`flex-1 p-6 justify-center`}>
+                <ScrollView
+                    contentContainerStyle={tw`flex-grow p-6 justify-center`}
+                    keyboardShouldPersistTaps="handled"
+                >
 
                     {/* Logo/Title Section */}
-                    <TouchableOpacity
-                        onPress={handleLogoTap}
-                        activeOpacity={0.8}
-                        style={tw`items-center mb-12`}
-                    >
+                    <View style={tw`items-center mb-8`}>
                         <View style={tw`w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 items-center justify-center mb-4 shadow-lg shadow-indigo-500/50`}>
                             <Feather name="shield" size={40} color="#fff" />
                         </View>
                         <Text style={tw`text-slate-900 text-4xl font-extrabold tracking-tight mb-2`}>Nav Sahayak</Text>
                         <Text style={tw`text-slate-500 text-sm font-medium`}>Legal Intelligence Platform</Text>
-                    </TouchableOpacity>
+                    </View>
 
                     {/* Login Form */}
-                    <View style={tw`bg-white p-6 rounded-[24px] border border-indigo-50 shadow-xl shadow-indigo-100/50 gap-5 mb-6`}>
+                    <View style={tw`bg-white p-6 rounded-[24px] border border-indigo-50 shadow-xl shadow-indigo-100/50 gap-5 mb-4`}>
                         <Text style={tw`text-slate-900 text-2xl font-bold mb-2`}>Welcome Back</Text>
 
                         {/* Email Input */}
@@ -116,24 +101,22 @@ export default function Login() {
                         >
                             <Text style={tw`text-white font-bold text-lg text-center tracking-wide`}>Login</Text>
                         </TouchableOpacity>
-
-                        {/* Dev Mode Toggle (Hidden by default) */}
-                        {showDevToggle && (
-                            <TouchableOpacity
-                                onPress={handleDevMode}
-                                style={tw`bg-amber-50 p-4 rounded-2xl border border-amber-200 flex-row items-center gap-3`}
-                            >
-                                <Feather name="zap" size={20} color="#f59e0b" />
-                                <View style={tw`flex-1`}>
-                                    <Text style={tw`text-amber-900 font-bold`}>Developer Mode</Text>
-                                    <Text style={tw`text-amber-600 text-xs`}>Skip authentication</Text>
-                                </View>
-                                <View style={tw`w-8 h-8 rounded-full ${devMode ? 'bg-amber-500' : 'bg-slate-300'} items-center justify-center`}>
-                                    {devMode && <Feather name="check" size={16} color="#fff" />}
-                                </View>
-                            </TouchableOpacity>
-                        )}
                     </View>
+
+                    {/* Dev Mode Toggle - Always Visible */}
+                    <TouchableOpacity
+                        onPress={handleDevMode}
+                        style={tw`bg-amber-50 p-4 rounded-2xl border border-amber-200 flex-row items-center gap-3 mb-4`}
+                    >
+                        <Feather name="zap" size={20} color="#f59e0b" />
+                        <View style={tw`flex-1`}>
+                            <Text style={tw`text-amber-900 font-bold`}>Developer Mode</Text>
+                            <Text style={tw`text-amber-600 text-xs`}>Skip authentication instantly</Text>
+                        </View>
+                        <View style={tw`w-8 h-8 rounded-full ${devMode ? 'bg-amber-500' : 'bg-slate-300'} items-center justify-center`}>
+                            {devMode && <Feather name="check" size={16} color="#fff" />}
+                        </View>
+                    </TouchableOpacity>
 
                     {/* Sign Up Link */}
                     <View style={tw`flex-row items-center justify-center gap-2`}>
