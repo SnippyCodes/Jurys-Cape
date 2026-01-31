@@ -51,17 +51,19 @@ export default function Signup() {
                 style={tw`flex-1`}
             >
                 <ScrollView
-                    contentContainerStyle={tw`flex-grow p-6 pb-10`}
+                    contentContainerStyle={tw`p-6 pb-10`}
                     keyboardShouldPersistTaps="handled"
                 >
 
-                    {/* Header */}
-                    <View style={tw`mt-2 mb-4`}>
-                        <TouchableOpacity onPress={() => router.back()} style={tw`w-10 h-10 rounded-full bg-white items-center justify-center mb-4 shadow-sm`}>
+                    {/* Compact Header - Inline */}
+                    <View style={tw`flex-row items-center mb-6`}>
+                        <TouchableOpacity onPress={() => router.back()} style={tw`w-10 h-10 rounded-full bg-white items-center justify-center mr-3 shadow-sm`}>
                             <Feather name="arrow-left" size={20} color="#64748b" />
                         </TouchableOpacity>
-                        <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight mb-2`}>Create Account</Text>
-                        <Text style={tw`text-slate-500 text-base`}>Join Nav Sahayak today</Text>
+                        <View>
+                            <Text style={tw`text-slate-900 text-2xl font-bold tracking-tight`}>Create Account</Text>
+                            <Text style={tw`text-slate-500 text-sm`}>Join Nav Sahayak</Text>
+                        </View>
                     </View>
 
                     {/* Signup Form */}
