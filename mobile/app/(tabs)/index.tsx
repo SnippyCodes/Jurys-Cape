@@ -75,25 +75,48 @@ export default function Dashboard() {
         </View>
     );
 
+    const getPriorityColor = (priority: string) => {
+        switch (priority) {
+            case 'Critical': return 'text-rose-600 bg-rose-50 border-rose-100';
+            case 'High': return 'text-orange-600 bg-orange-50 border-orange-100';
+            case 'Medium': return 'text-amber-600 bg-amber-50 border-amber-100';
+            default: return 'text-slate-500 bg-slate-50 border-slate-100';
+        }
+    };
+
     const renderItem = ({ item }: { item: typeof cases[0] }) => (
         <TouchableOpacity
             onPress={() => router.push({ pathname: '/case/[id]', params: { id: item.id } })}
-            style={tw`bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex-row items-center justify-between active:scale-[0.99] transition-all mb-3`}
+            style={tw`bg-white p-5 rounded-[24px] border border-slate-100 shadow-lg shadow-indigo-100/30 mb-4 active:scale-[0.99] transition-all`}
         >
-            <View style={tw`flex-1`}>
-                <View style={tw`flex-row items-center gap-2 mb-1.5`}>
-                    <View style={tw`bg-slate-50 px-2.5 py-0.5 rounded-md border border-slate-200`}>
-                        <Text style={tw`text-slate-500 text-[10px] font-bold`}>#{item.id}</Text>
-                    </View>
-                    <Text style={tw`text-slate-400 text-xs font-medium`}>{item.date}</Text>
+            {/* Card Header: Case ID & Priority */}
+            <View style={tw`flex-row justify-between items-start mb-3`}>
+                <View style={tw`bg-slate-50 px-3 py-1 rounded-full border border-slate-100`}>
+                    <Text style={tw`text-slate-500 text-[10px] font-bold tracking-wider uppercase`}>Case #{item.id}</Text>
                 </View>
-                <Text style={tw`text-slate-900 font-bold text-base mb-0.5 tracking-tight`}>{item.title}</Text>
-                <Text style={tw`text-slate-500 text-xs font-medium`}>{item.type}</Text>
+                <View style={tw`flex-row items-center gap-2`}>
+                    <View style={tw`px-2.5 py-0.5 rounded-full border ${getPriorityColor(item.priority)}`}>
+                        <Text style={tw`${getPriorityColor(item.priority).split(' ')[0]} text-[10px] font-bold uppercase tracking-wide`}>{item.priority}</Text>
+                    </View>
+                </View>
             </View>
 
-            <View style={tw`items-end justify-center pl-4 border-l border-slate-50`}>
-                <View style={tw`w-10 h-10 rounded-full items-center justify-center ${item.priority === 'Critical' ? 'bg-red-50 border border-red-100' : 'bg-slate-50 border border-slate-100'}`}>
-                    <Feather name="arrow-right" size={18} color={item.priority === 'Critical' ? '#ef4444' : '#94a3b8'} />
+            {/* Content: Title & Type */}
+            <View style={tw`mb-4`}>
+                <Text style={tw`text-slate-900 font-bold text-lg leading-tight tracking-tight mb-1`}>{item.title}</Text>
+                <Text style={tw`text-slate-400 text-xs font-semibold uppercase tracking-wide`}>{item.type}</Text>
+            </View>
+
+            {/* Footer: Date & Status */}
+            <View style={tw`flex-row items-center justify-between pt-3 border-t border-slate-50`}>
+                <View style={tw`flex-row items-center gap-2`}>
+                    <Feather name="calendar" size={14} color="#94a3b8" />
+                    <Text style={tw`text-slate-500 text-xs font-medium`}>{item.date}</Text>
+                </View>
+
+                <View style={tw`flex-row items-center gap-1.5`}>
+                    <Text style={tw`text-slate-600 text-xs font-bold`}>{item.status}</Text>
+                    <Feather name="chevron-right" size={14} color="#cbd5e1" />
                 </View>
             </View>
         </TouchableOpacity>
