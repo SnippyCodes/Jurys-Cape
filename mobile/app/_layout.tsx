@@ -18,13 +18,13 @@ function RootLayoutNav() {
 
     useEffect(() => {
         const inAuthGroup = segments[0] === '(tabs)';
-        const inCaseRoute = segments[0] === 'case';
+        const inAuthPages = segments[0] === 'login' || segments[0] === 'signup';
 
         if (!isAuthenticated && !devMode && inAuthGroup) {
             // Redirect to login if not authenticated and trying to access tabs
             router.replace('/login');
-        } else if ((isAuthenticated || devMode) && !inAuthGroup && !inCaseRoute) {
-            // Redirect to app if authenticated, but allow case routes
+        } else if ((isAuthenticated || devMode) && inAuthPages) {
+            // Redirect to app if authenticated and on login/signup pages
             router.replace('/(tabs)');
         }
     }, [isAuthenticated, devMode, segments]);
