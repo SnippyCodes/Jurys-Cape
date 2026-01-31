@@ -2,12 +2,6 @@ import { View, Text, ScrollView, SafeAreaView, TouchableOpacity, Image } from 'r
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import tw from 'twrnc';
-import { useCases } from '../../context/CaseContext'; // Corrected path? No, wait.
-// evidence/detail.tsx is in mobile/app/evidence/
-// ../ is mobile/app/
-// ../context/CaseContext is mobile/app/context/CaseContext
-// So it should be '../context/CaseContext' like [id].tsx
-
 import { useCases } from '../context/CaseContext';
 
 export default function EvidenceDetail() {
