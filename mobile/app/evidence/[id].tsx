@@ -5,8 +5,8 @@ import tw from 'twrnc';
 import { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import * as DocumentPicker from 'expo-document-picker';
-import { api } from '../../services/api';
-import { useCases, EvidenceItem } from '../../context/CaseContext';
+import { api } from '../services/api';
+import { useCases, EvidenceItem } from '../context/CaseContext';
 
 export default function CaseEvidenceDetail() {
     const { id } = useLocalSearchParams();
