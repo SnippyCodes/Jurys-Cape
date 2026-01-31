@@ -5,6 +5,7 @@ import tw from 'twrnc';
 import { useState } from 'react';
 import { api } from '../services/api';
 import { useCases } from '../context/CaseContext';
+import { useLanguage } from '../context/LanguageContext';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function Filing() {

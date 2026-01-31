@@ -3,10 +3,12 @@ import { Feather } from '@expo/vector-icons';
 import { Stack, useRouter } from 'expo-router';
 import tw from 'twrnc';
 import { useCases } from '../context/CaseContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Evidence() {
     const router = useRouter();
     const { cases } = useCases();
+    const { t } = useLanguage();
 
     const activeCases = cases.filter(c => c.status !== 'Closed');
 
@@ -16,14 +18,14 @@ export default function Evidence() {
             <View style={tw`mb-8 mt-2 flex-row justify-between items-end`}>
                 <View>
                     <Text style={tw`text-cyan-600 text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5`}>Forensic Lab</Text>
-                    <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight`}>Evidence</Text>
+                    <Text style={tw`text-slate-900 text-3xl font-extrabold tracking-tight`}>{t('evidence')}</Text>
                 </View>
                 <View style={tw`bg-cyan-50 px-3 py-1 rounded-full border border-cyan-100`}>
                     <Text style={tw`text-cyan-700 text-xs font-bold`}>{activeCases.length} Open Cases</Text>
                 </View>
             </View>
 
-            <Text style={tw`text-slate-500 font-bold text-xs uppercase tracking-widest mb-4`}>Select Case to Manage Evidence</Text>
+            <Text style={tw`text-slate-500 font-bold text-xs uppercase tracking-widest mb-4`}>{t('selectCase')}</Text>
         </View>
     );
 
